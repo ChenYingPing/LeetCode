@@ -8,24 +8,6 @@
 
 import UIKit
 
-public class Interval {
-    public var start: Int
-    public var end: Int
-    public init(_ start: Int, _ end: Int) {
-        self.start = start
-        self.end = end
-    }
-}
-
-public class ListNode {
-         public var val: Int
-         public var next: ListNode?
-         public init(_ val: Int) {
-                 self.val = val
-                    self.next = nil
-             }
-     }
-
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
@@ -169,7 +151,6 @@ class ViewController: UIViewController {
         var array: [Int] = []
         for index in 0..<nums.count {
             array.append(nums[index])
-            
         }
     }
 
@@ -249,6 +230,7 @@ class ViewController: UIViewController {
         let right = minDepth(root?.right)
         return (left == 0 || right == 0) ? left + right + 1 : 1 + min(left, right)
     }
+    
     // 二叉树的深度
     func maxDepth(root: TreeNode?) -> Int {
         if root == nil {
@@ -326,16 +308,6 @@ class ViewController: UIViewController {
     }
 }
 
-public class TreeNode {
-    public var val: Int
-    public var left: TreeNode?
-    public var right: TreeNode?
-    public init(_ val: Int) {
-        self.val = val
-        self.left = nil
-        self.right = nil
-    }
-}
 /*
 class Solution {
     public:
@@ -383,20 +355,3 @@ public class Solution {
     }
 }
 */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    

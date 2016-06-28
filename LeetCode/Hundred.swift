@@ -16,7 +16,9 @@ class Hundred: UIViewController
         tree.next = ListNode(2)
         tree.next?.next = ListNode(4)
     }
+    
     // MARK: - leetCode NO.129
+    
     func sumNumbers(root: TreeNode?) -> Int {
         var arr: [Int] = []
         sumNumbersting(&arr,root: root ,sum:"")
@@ -26,6 +28,7 @@ class Hundred: UIViewController
         }
         return res
     }
+    
     func sumNumbersting(inout arr: [Int], root: TreeNode?, sum: String) {
         if root == nil { return }
         var sum = sum
@@ -40,7 +43,9 @@ class Hundred: UIViewController
             arr.append(Int(sum)!)
         }
     }
+    
     // MARK: - leetCode NO.130
+    
     func solve(inout board: [[Character]]) {
         let row = board.count
         if(row == 0) { return }
@@ -72,6 +77,7 @@ class Hundred: UIViewController
             }
         }
     }
+    
     func check(inout vec: [[Character]], i: Int, j: Int, row: Int, col: Int){
         if(vec[i][j] == Character.init("O")){  // 如果当前字符为O，则把它改为1，并且寻找它边上为O的字符也改为1，一直递归到找不到字符为O的位置。
             // 因为原来的字符已经改为1了，所以该函数并不会无限循环
@@ -90,13 +96,17 @@ class Hundred: UIViewController
             }
         }
     }
+    
     // MARK: - leetCode NO.131
+    
     func partition(s: String) -> [[String]] {  // 用回溯法实现
         //https://leetcode.com/discuss/18984/java-backtracking-solution
         var res: [[String]] = []
         return res
     }
+    
     // MARK: - leetCode NO.135
+    
     func candy(ratings: [Int]) -> Int {
         if ratings.count <= 1 {
             return ratings.count
@@ -116,7 +126,9 @@ class Hundred: UIViewController
             $0 + $1
         })
     }
+    
     // MARK: - leetCode NO.136
+    
     func singleNumber(nums: [Int]) -> Int {
         // swift也能用 异或 真是太屌了  相同为0 不同为1
         var result = 0
@@ -126,7 +138,9 @@ class Hundred: UIViewController
         }
         return result
     }
+    
     // MARK: - leetCode NO.137
+    
     func singleNumberII(nums: [Int]) -> Int {
 //        let nums = nums.sort()
 //        for (var i = 0 i < nums.count - 1 i+=3) {
@@ -143,7 +157,9 @@ class Hundred: UIViewController
         }
         return ones
     }
+    
     // MARK: - leetCode NO.144
+    
 //    var resArr: [Int] = []
     func preorderTraversal(root: TreeNode?) -> [Int] {
 //        if root == nil {  // 递归的做法
@@ -168,7 +184,9 @@ class Hundred: UIViewController
         }
         return resArr
     }
+    
     // MARK: - leetCode NO.145   后续遍历
+    
 //    var resArr: [Int] = []
     func postorderTraversal(root: TreeNode?) -> [Int] {
 //        if root == nil {  // 递归的做法
@@ -194,7 +212,9 @@ class Hundred: UIViewController
         }
         return resArr.reverse()
     }
+    
     // MARK: - leetCode NO.147  插入排序
+    
     func insertionSortListII(head: ListNode?) -> ListNode? {
         var head = head
         var arr: [Int] = []
@@ -237,7 +257,9 @@ class Hundred: UIViewController
         
         return helper.next
     }
+    
     // MARK: - leetCode NO.148
+    
     func sortList(head: ListNode?) -> ListNode? {  // 快速排序是最好的吧
         var head = head
         var arr: [Int] = []
@@ -255,7 +277,9 @@ class Hundred: UIViewController
         }
         return pre.next
     }
+    
     // MARK: - leetCode NO.150
+    
     func evalRPN(tokens: [String]) -> Int {
         var numArr: [Int] = []
         for char in tokens {
@@ -290,7 +314,9 @@ class Hundred: UIViewController
         }
         return numArr.popLast() ?? 0
     }
+    
      // MARK: - leetCode NO.152  DP
+    
     func maxProduct(nums: [Int]) -> Int {
         if (nums.count == 0) {
             return 0
@@ -309,6 +335,7 @@ class Hundred: UIViewController
         }
         return maxsofar
     }
+    
     // MARK: - leetCode NO.164  桶排序
     /*
      http://www.cnblogs.com/Vae1990Silence/p/4280693.html
@@ -349,7 +376,9 @@ class Hundred: UIViewController
         }
         return max(maxGap, maxNum - previous)
     }
+    
     // MARK: - leetCode NO.165
+    
     func compareVersion(version1: String, _ version2: String) -> Int {
         if version1 == version2 { return 0 }
         let nums1 = version1.componentsSeparatedByString(".")
@@ -370,7 +399,9 @@ class Hundred: UIViewController
         }
         return 0
     }
+    
     // MARK: - leetCode NO.166
+    
     func fractionToDecimal(numerator: Int, _ denominator: Int) -> String {
 //        if numerator == 0 {
 //            return "0"
@@ -379,13 +410,17 @@ class Hundred: UIViewController
 //        res.stringByAppendingString(((numerator > 0 ? 1 : 0)^(denominator > 0 ? 1: 0)) == 0 ? "-":"")
         return ""
     }
+    
     // MARK: - leetCode NO.168
+    
     var strs = ["A","B","C","D","E","F","G","H","I","j","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
     func convertToTitle(n: Int) -> String {
         var n = n
         return n == 0 ? "" : convertToTitle(--n / 26) + strs[n % 26]
     }
+    
     // MARK: - leetCode NO.169
+    
     func majorityElement(nums: [Int]) -> Int {
         var map: [Int : Int] = [:]
         for num in nums {
@@ -400,7 +435,9 @@ class Hundred: UIViewController
         }
         return nums[0]
     }
+    
     // MARK: - leetCode NO.171
+    
     func titleToNumber(s: String) -> Int {
         var result = 0
         for char in s.characters {  // 操作swift的字符真是太麻烦了
@@ -408,7 +445,9 @@ class Hundred: UIViewController
         }
         return result
     }
+    
     // MARK: - leetCode NO.174
+    
     func calculateMinimumHP(dungeon: [[Int]]) -> Int {
         if dungeon.count == 0 || dungeon.first == nil {
             return 0

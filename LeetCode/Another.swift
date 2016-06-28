@@ -8,6 +8,36 @@
 
 import UIKit
 
+public class Interval {
+    public var start: Int
+    public var end: Int
+    public init(_ start: Int, _ end: Int) {
+        self.start = start
+        self.end = end
+    }
+}
+
+public class ListNode {
+    public var val: Int
+    public var next: ListNode?
+    public init(_ val: Int) {
+        self.val = val
+        self.next = nil
+    }
+}
+
+public class TreeNode {
+    public var val: Int
+    public var left: TreeNode?
+    public var right: TreeNode?
+    public init(_ val: Int) {
+        self.val = val
+        self.left = nil
+        self.right = nil
+    }
+}
+
+
 class Another: UIViewController
 {
     override func viewDidLoad() {
@@ -132,7 +162,9 @@ class Another: UIViewController
             return x * myPow(x, n-1)
         }
     }
+    
     // MARK: - leetcode NO.51
+    
     var rows: [Int] = []
     var resultArr: [[String]] = []
     func solveNQueens(n: Int) -> [[String]] { // N皇后算法，求得所有的解
@@ -140,6 +172,7 @@ class Another: UIViewController
         getArrangement(0, maxqueen: n)
         return resultArr
     }
+    
     func getArrangement(n: Int, maxqueen: Int) {
         // 第n行中所有列的值初始化都为false
         var cols:[Bool] = Array(count: maxqueen, repeatedValue: false)
@@ -204,6 +237,7 @@ class Another: UIViewController
         }
         return result
     }
+    
     func spiralOrder(matrix: [[Int]]) -> [Int] { // 螺旋矩阵
         let col = matrix.first?.count // 每行有多少个
         let row = matrix.count // 一共有多少行
@@ -271,13 +305,11 @@ class Another: UIViewController
         }
         return res
     }
-    
-    
-    
     // 找到 interval.start < newInterval.start && interval.end < newInterval.start
 //    func findLowInterval(intervals: [Interval], _ newInterval: Interval) -> Interval {
 //        
 //    }
+    
 }
 // MARK: - Find the contiguous subarray within an array (containing at least one number) which has the largest sum.
 //public static int maxSubArray(int[] A) {

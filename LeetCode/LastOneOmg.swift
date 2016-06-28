@@ -19,7 +19,9 @@ class LastOneOmg: UIViewController {
     //    func maxProfit(k: Int, _ prices: [Int]) -> Int {
     //
     //    }
+    
     // MARK: - leetcode NO.189
+    
     func rotate(inout nums: [Int], _ k: Int) {
         //        let m = nums.count
         //        let k = k % m
@@ -41,6 +43,7 @@ class LastOneOmg: UIViewController {
             k -= 1
         }
     }
+    
     // MARK: - leetcode NO.198
     /*
      func rob(nums: [Int]) -> Int {  // 使用回溯法会超时，虽然是正确的
@@ -77,12 +80,15 @@ class LastOneOmg: UIViewController {
         }
         return max(a, b)
     }
+    
     // MARK: - leetcode NO.199
+    
     func rightSideView(root: TreeNode?) -> [Int] {
         var res: [Int] = []
         rightView(root, res: &res, level: 0)
         return res
     }
+    
     func rightView(root: TreeNode?, inout res: [Int], level: Int) {
         if root == nil {
             return
@@ -93,7 +99,9 @@ class LastOneOmg: UIViewController {
         rightView(root?.right, res: &res, level: level+1)
         rightView(root?.left, res: &res, level: level+1)
     }
+    
     // MARK: - leetcode NO.200
+    
     func numIslands(grid: [[Character]]) -> Int {
         if grid.count == 0 || grid.first == nil { return 0 }
         let m = grid.count
@@ -110,6 +118,7 @@ class LastOneOmg: UIViewController {
         }
         return res
     }
+    
     func  checkGrid(inout grid: [[Character]], i: Int, j: Int) {
         let m = grid.count
         let n = grid.first!.count
@@ -121,7 +130,9 @@ class LastOneOmg: UIViewController {
         checkGrid(&grid, i: i-1, j: j)
         checkGrid(&grid, i: i, j: j-1)
     }
+    
     // MARK: - leetcode NO.202
+    
     func isHappy(n: Int) -> Bool {  // 这题在leetcode上discuss里有更好的解法
         var sum = Helper(n)
         var map: [Int: Bool] = [:]
@@ -134,6 +145,7 @@ class LastOneOmg: UIViewController {
         }
         return true
     }
+    
     func Helper(n: Int) -> Int
     {   // sum of the squares of its digits
         var n = n
@@ -145,7 +157,9 @@ class LastOneOmg: UIViewController {
         }
         return ret;
     }
+    
     // MARK: - leetcode NO.203
+    
     func removeElements(head: ListNode?, _ val: Int) -> ListNode? {
         var head = head
         var res = ListNode(0)
@@ -160,6 +174,7 @@ class LastOneOmg: UIViewController {
         }
         return pre.next
     }
+    
     func reverseList(head: ListNode?) -> ListNode? {
         var head = head
         var res = ListNode(0)
@@ -171,12 +186,16 @@ class LastOneOmg: UIViewController {
         }
         return res.next
     }
+    
     // MARK: - leetcode NO.207 拓扑排序 判断图中图中是否含有环
+    
     func canFinish(numCourses: Int, _ prerequisites: [[Int]]) -> Bool {
         //        https://leetcode.com/discuss/35578/easy-bfs-topological-sort-java
         return false
     }
+    
     // MARK: - leetcode NO.209
+    
     func minSubArrayLen(s: Int, _ nums: [Int]) -> Int {
         if (nums.count == 0) { return 0 }
         var i = 0, j = 0, sum = 0, minValue = Int.max

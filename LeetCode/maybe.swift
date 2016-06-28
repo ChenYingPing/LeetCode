@@ -8,6 +8,35 @@
 
 import UIKit
 
+public class Interval {
+    public var start: Int
+    public var end: Int
+    public init(_ start: Int, _ end: Int) {
+        self.start = start
+        self.end = end
+    }
+}
+
+public class ListNode {
+    public var val: Int
+    public var next: ListNode?
+    public init(_ val: Int) {
+        self.val = val
+        self.next = nil
+    }
+}
+
+public class TreeNode {
+    public var val: Int
+    public var left: TreeNode?
+    public var right: TreeNode?
+    public init(_ val: Int) {
+        self.val = val
+        self.left = nil
+        self.right = nil
+    }
+}
+
 class maybe: UIViewController
 {
     override func viewDidLoad() {
@@ -23,6 +52,7 @@ class maybe: UIViewController
         huisu(m, n: n, minpath: 0)
         return result
     }
+    
     var myobstacleGrid: [[Int]] = []
     var result = Int.max
     func huisu(m: Int, n: Int, minpath: Int) { // 虽然递归次数不算很多，但是毕竟是调用方法。而且方法里面创建了局部变量。所以速度还是比较慢。
@@ -44,6 +74,7 @@ class maybe: UIViewController
             huisu(m, n: n-1,minpath: minsumPath)
         }
     }
+    
     func mySqrt(x: Int) -> Int {
         for i in 0...x {
             if i * i > x {
@@ -116,10 +147,12 @@ class maybe: UIViewController
         }
         return false
     }
+    
     func sortColors(inout nums: [Int]) {  // 快速排序
         let count = nums.count
         quickSort(&nums, low: 0, high: count-1)
     }
+    
     func quickSort(inout nums: [Int], low: Int, high: Int) {
         if low < high {
             let pivot = partition(&nums, low: low, high: high)
@@ -127,6 +160,7 @@ class maybe: UIViewController
             quickSort(&nums, low: pivot + 1, high: high)
         }
     }
+    
     func partition(inout nums: [Int], low: Int, high: Int) -> Int {
         var mylow = low
         var myhigh = high
@@ -144,7 +178,9 @@ class maybe: UIViewController
         nums[mylow] = pivot
         return mylow
     }
+    
     // MARK: - leetCode No.78
+    
     func subsets(nums: [Int]) -> [[Int]] {  // 回溯法解决 NO.77 ~ 78
         var mynums = nums
         var combs: [[Int]] = []
@@ -155,6 +191,7 @@ class maybe: UIViewController
         }
         return combs
     }
+    
     func combine(inout nums: [Int], inout combs: [[Int]], inout comb: [Int], start: Int, n: Int, k: Int) {
         if k == 0 {
             combs.append(comb.sort())
@@ -166,7 +203,9 @@ class maybe: UIViewController
             comb.removeLast()
         }
     }
+    
     // MARK: - leetCode NO.79
+    
     func exist(board: [[Character]], _ word: String) -> Bool {
         var wordArr: [Character] = []
         for char in word.characters {
@@ -185,6 +224,7 @@ class maybe: UIViewController
         }
         return false
     }
+    
     func exist(board: [[Character]], y: Int, x: Int, word: [Character], i: Int) -> Bool {
         if i == word.count {
             return true
@@ -196,7 +236,9 @@ class maybe: UIViewController
         let result = exist(myboard, y: y, x: x-1, word: word, i: i+1) || exist(myboard, y: y-1, x: x, word: word, i: i+1) || exist(myboard, y: y, x: x+1, word: word, i: i+1) || exist(myboard, y: y+1, x: x, word: word, i: i+1)
         return result
     }
+    
     // MARK: - leetCode NO.80
+    
     func removeDuplicates(inout nums: [Int]) -> Int {
         nums.sortInPlace()
         var i = 0
@@ -209,7 +251,9 @@ class maybe: UIViewController
         }
         return nums.count
     }
+    
     // MARK: - leetCode NO.81
+    
     func search(nums: [Int], _ target: Int) -> Bool {
         let mynus = nums.sort()
         var lo = 0
@@ -227,6 +271,7 @@ class maybe: UIViewController
         return false
     }
     // MARK: - leetCode NO.82
+    
     func deleteDuplicates(head: ListNode?) -> ListNode? {
         var myhead = head
         var pre = ListNode(0)
@@ -244,7 +289,9 @@ class maybe: UIViewController
         }
         return result.next
     }
+    
     // MARK: - leetCode NO.84
+    
     func largestRectangleArea(heights: [Int]) -> Int { //http://www.cnblogs.com/felixfang/p/3676193.html 解释在这里，看完解释再看代码就容易理解了. 下面的解法比文章还做了改进。时间复杂度为O(n)
         let len = heights.count
         var s: [Int] = []
@@ -262,7 +309,9 @@ class maybe: UIViewController
         }
         return maxArea;
     }
+    
     // MARK: - leetCode NO.86
+    
     func partition(head: ListNode?, _ x: Int) -> ListNode? {
         var myhead = head
         var less = ListNode(0)
@@ -283,7 +332,9 @@ class maybe: UIViewController
         less.next = preBigger.next
         return preLess.next
     }
+    
     // MARK: - leetCode NO.88
+    
     func merge(inout nums1: [Int], _ m: Int, _ nums2: [Int], _ n: Int) {
         var lowNum1 = 0
         var lowNum2 = 0
@@ -299,7 +350,7 @@ class maybe: UIViewController
             tempArr.append(nums2[lowNum2++])
         }
         nums1 = tempArr
-    }
+}
     // MARK: - leetCode NO.87
 //    public class Solution {
 //        public boolean isScramble(String s1, String s2) {

@@ -24,7 +24,9 @@ class lifeCycle: UIViewController
         print(unsafeAddressOf(arrcopy[0]))
         */
     }
+    
     // MARK: - leetCode NO.89
+    
     func grayCode(n: Int) -> [Int] {
         var arr: [Int] = []
         arr.append(0)
@@ -37,13 +39,16 @@ class lifeCycle: UIViewController
         return arr
         
     }
+    
     // MARK: - leetCode NO.90
+    
     func subsetsWithDup(nums: [Int]) -> [[Int]] { // 并没有去除重复
         var res: [[Int]] = []
         res.append([])
         subSet(&res, nums: nums.sort(),i: 0)
         return res
     }
+    
     var tempArr: [Int] = []
     func subSet(inout res:[[Int]], nums: [Int], i: Int) {
         if i == nums.count { return }
@@ -54,7 +59,9 @@ class lifeCycle: UIViewController
             tempArr.removeLast()
         }
     }
+    
     // MARK: - leetCode NO.94  树的中序遍历 左->根->右
+    
     var count: [Int] = []
     func inorderTraversal(root: TreeNode?) -> [Int] {
         if root == nil {
@@ -69,7 +76,9 @@ class lifeCycle: UIViewController
         }
         return count
     }
+    
     // MARK: - leetCode NO.98
+    
     func isValidBST(root: TreeNode?) -> Bool {
         let resArr = inorderTraversal(root)
         var minNum = Int.min
@@ -82,7 +91,9 @@ class lifeCycle: UIViewController
         }
         return true
     }
+    
     // MARK: - leetCode NO.95
+    
     func generateTrees(n: Int) -> [TreeNode?] {
         if n == 0 { return [] }
         return generateTrees(1, end: n)
@@ -114,7 +125,9 @@ class lifeCycle: UIViewController
         
         return list
     }
+    
     // MARK: - leetCode NO.99
+    
     var firstElement: TreeNode?
     var secondElement: TreeNode?
     var preElement: TreeNode? = TreeNode(Int.min)
@@ -136,12 +149,15 @@ class lifeCycle: UIViewController
         preElement = root
         traverse(root?.right)
     }
+    
     // MARK: - leetCode NO.103  层序遍历
+    
     func zigzagLevelOrder(root: TreeNode?) -> [[Int]] {
         var sol: [[Int]] = []
         travel(root, sol: &sol, level: 0)
         return sol
     }
+    
     func travel(curr: TreeNode?, inout sol: [[Int]], level: Int) {
         if curr == nil { return }
         if sol.count <= level {
@@ -158,7 +174,9 @@ class lifeCycle: UIViewController
         travel(curr?.left, sol: &sol, level: level + 1)
         travel(curr?.right, sol: &sol, level: level + 1)
     }
+    
     // MARK: - leetCode NO.105  
+    
     func buildTree(preorder: [Int], _ inorder: [Int]) -> TreeNode? {
         // 根据前序遍历和中序遍历的结果画出这棵树
         return helper(0, inStart: 0, inEnd: inorder.count-1, preorder: preorder, inorder: inorder)
@@ -180,6 +198,7 @@ class lifeCycle: UIViewController
     }
     
     // MARK: - leetCode NO.108  高度平衡二叉树
+    
     func sortedArrayToBST(nums: [Int]) -> TreeNode? {
         if nums.count == 0 { return nil }
         let mid = nums.count / 2
@@ -198,6 +217,7 @@ class lifeCycle: UIViewController
     }
     
     // MARK: - leetCode NO.109
+    
     func sortedListToBST(head: ListNode?) -> TreeNode? {
         var myhead = head
         var nums: [Int] = []
@@ -209,6 +229,7 @@ class lifeCycle: UIViewController
     }
     
     // MARK: - leetCode NO.112
+    
     func hasPathSum(root: TreeNode?, _ sum: Int) -> Bool {
         if root == nil {
             return false
@@ -221,6 +242,7 @@ class lifeCycle: UIViewController
     }
     
     // MARK: - leetCode NO.113
+    
     func pathSum(root: TreeNode?, _ sum: Int) -> [[Int]] {
         var res: [[Int]] = []
         hasPathSum(&res, tempArr: [] , root: root, sum)
@@ -239,6 +261,7 @@ class lifeCycle: UIViewController
     }
     
     // MARK: - leetCode NO.114
+    
     private var prev: TreeNode?
     func flatten(root: TreeNode?) {  // 非常完美，牛逼
         if root == nil {
@@ -258,6 +281,7 @@ class lifeCycle: UIViewController
     }
     
     // MARK: - leetCode NO.118
+    
     func generate(numRows: Int) -> [[Int]] {
         var res: [[Int]] = []
         if numRows > 0  {
@@ -280,7 +304,9 @@ class lifeCycle: UIViewController
         }
         return res
     }
+    
     // MARK: - leetCode NO.119
+    
     func getRow(rowIndex: Int) -> [Int] {
         var res: [Int] = [1]
         for _ in 0 ..< rowIndex {
@@ -290,7 +316,9 @@ class lifeCycle: UIViewController
         }
         return res
     }
+    
     // MARK: - leetCode NO.120
+    
     func minimumTotal(triangle: [[Int]]) -> Int {  // DP
         var triangle = triangle
         for (var i = triangle.count - 2; i >= 0; i -= 1) {
@@ -301,7 +329,9 @@ class lifeCycle: UIViewController
         }
         return triangle[0][0];
     }
+    
     // MARK: - leetCode NO.121
+    
     func maxProfit(prices: [Int]) -> Int {
         let count = prices.count
         if count == 0 { return 0 }
@@ -313,7 +343,9 @@ class lifeCycle: UIViewController
         }
         return maxProfit
     }
+    
     // MARK: - leetCode NO.122
+    
     func maxProfitII(prices: [Int]) -> Int {
         let count = prices.count
         if count == 0 { return 0 }
@@ -327,7 +359,9 @@ class lifeCycle: UIViewController
         }
         return maxProfit
     }
+    
     // MARK: - leetCode NO.123
+    
     func maxProfitIII(prices: [Int]) -> Int {
         var hold1 = Int.min
         var hold2 = Int.min
@@ -341,7 +375,9 @@ class lifeCycle: UIViewController
         }
         return release2
     }
+    
     // MARK: - leetCode NO.125
+    
     func isPalindrome(s: String) -> Bool {
         if s == "" {
             return true
@@ -364,7 +400,9 @@ class lifeCycle: UIViewController
         }
         return true
     }
+    
     // MARK: - leetCode NO.128
+    
     func longestConsecutive(nums: [Int]) -> Int {
         var res = 0
         var map: [Int : Int] = [:]

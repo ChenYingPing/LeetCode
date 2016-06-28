@@ -11,6 +11,7 @@ import UIKit
 class whatever: UIViewController
 {
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
         let array: Array = [1,2,3,4,5,6,7]
@@ -182,6 +183,7 @@ class whatever: UIViewController
         
         return result?.next
     }
+    
     func mergeKLists(lists: [ListNode?]) -> ListNode? {
         if (lists.count==0) {return nil}
         if (lists.count==1) {return lists[0]}
@@ -344,7 +346,6 @@ class whatever: UIViewController
         }
         return [start, hi]
     }
-    
 }
 /*
  public List<String> letterCombinations(String digits) {
