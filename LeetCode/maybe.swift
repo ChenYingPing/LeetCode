@@ -8,37 +8,36 @@
 
 import UIKit
 
-public class Interval {
-    public var start: Int
-    public var end: Int
-    public init(_ start: Int, _ end: Int) {
-        self.start = start
-        self.end = end
-    }
-}
-
-public class ListNode {
-    public var val: Int
-    public var next: ListNode?
-    public init(_ val: Int) {
-        self.val = val
-        self.next = nil
-    }
-}
-
-public class TreeNode {
-    public var val: Int
-    public var left: TreeNode?
-    public var right: TreeNode?
-    public init(_ val: Int) {
-        self.val = val
-        self.left = nil
-        self.right = nil
-    }
-}
-
 class maybe: UIViewController
 {
+    internal class Interval {
+        internal var start: Int
+        internal var end: Int
+        internal init(_ start: Int, _ end: Int) {
+            self.start = start
+            self.end = end
+        }
+    }
+    
+    internal class ListNode {
+        internal var val: Int
+        internal var next: ListNode?
+        internal init(_ val: Int) {
+            self.val = val
+            self.next = nil
+        }
+    }
+    internal class TreeNode {
+        internal var val: Int
+        internal var left: TreeNode?
+        internal var right: TreeNode?
+        internal init(_ val: Int) {
+            self.val = val
+            self.left = nil
+            self.right = nil
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         var arr = [1]

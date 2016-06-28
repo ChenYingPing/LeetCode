@@ -10,6 +10,34 @@ import UIKit
 
 class Hundred: UIViewController
 {
+    internal class Interval {
+        internal var start: Int
+        internal var end: Int
+        internal init(_ start: Int, _ end: Int) {
+            self.start = start
+            self.end = end
+        }
+    }
+    
+    internal class ListNode {
+        internal var val: Int
+        internal var next: ListNode?
+        internal init(_ val: Int) {
+            self.val = val
+            self.next = nil
+        }
+    }
+    internal class TreeNode {
+        internal var val: Int
+        internal var left: TreeNode?
+        internal var right: TreeNode?
+        internal init(_ val: Int) {
+            self.val = val
+            self.left = nil
+            self.right = nil
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let tree = ListNode(3)
