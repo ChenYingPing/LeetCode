@@ -93,15 +93,106 @@ public:
         
         return maxLen;
     }
+    
+    void findPalindrome(string s, int left, int right, int& start, int& len)
+    {
+        int n = s.size();
+        int l = left;
+        int r = right;
+        while (left>=0 && right <= n-1 && s[left] == s[right]) {
+            left--;
+            right++;
+        }
+        if (right-left-1 > len) {
+            len = right - left - 1;
+            start = left + 1;
+        }
+    }
+    
+    //The following solution is better than previous solution.
+    //Because it remove the sub-string return in findPalindrome().
+    string longestPalindrome(string s) {
+        int n = s.size();
+        if (n <= 1) return s;
+        
+        int start = 0, len = 0;
+        string longest;
+        
+        string str;
+        for (int i = 0; i < n-1; i++) {
+            findPalindrome(s, i, i, start, len);
+            findPalindrome(s, i, i+1, start, len);
+        }
+        
+        return s.substr(start, len);
+    }
+    
+    // Optimized DP soltuion can be accepted by LeetCode.
+    string longestPalindrome_dp_opt_way(string s) {
+        int n = s.size();
+        if (n<=1) { return s; }
+        bool **matrix = (bool**)malloc(n*sizeof(bool*));
+        int start = 0, len = 0;
+        for (int i = 0; i < n; i++) {
+            matrix[i] = (bool*)malloc((i+1)*sizeof(bool));
+            memset(matrix[i], false, (i+1)*sizeof(bool));
+            matrix[i][i] = true;
+            for (int j = 0; j <= i; j++) {
+                if (i == j || (s[j]==s[i] && (i-j<2 || matrix[i-1][j+1]))) {
+                    matrix[i][j] = true;
+                    if (len < i-j+1) {
+                        start = j;
+                        len = i - j + 1;
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            free(matrix[i]);
+        }
+        free(matrix);
+        
+        return s.substr(start, len);
+    }
+    
+    string convert(string s, int numRows) {
+        if (numRows <= 1)
+            return s;
+        
+        const int len = (int)s.length();
+        string *str = new string[numRows];
+        
+        int row = 0, step = 1;
+        for (int i = 0; i < len; ++i)
+        {
+            str[row].push_back(s[i]);
+            
+            if (row == 0)
+                step = 1;
+            else if (row == numRows - 1)
+                step = -1;
+            
+            row += step;
+        }
+        
+        s.clear();
+        for (int j = 0; j < numRows; ++j)
+        {
+            s.append(str[j]);
+        }
+        
+        delete[] str;
+        return s;
+    }
 
 };
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-//    std::cout << "Hello, World!dfdsfads\n";
-    vector<int> nums = {2, 7, 11, 15};
-    Solution solu;
-    vector<int> result = solu.twoSum(nums, 22);
+    
+    Solution slution;
+    string str = "Hello, Worldd";
+    string result = slution.convert(str, 3);
+    
     
     return 0;
 }
