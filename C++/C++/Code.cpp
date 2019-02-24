@@ -184,14 +184,54 @@ public:
         delete[] str;
         return s;
     }
-
+    bool isPalindrome(int x) {
+        if (x<0 || (x!=0 && x%10==0)) return false;
+        int rev = 0;
+        while (x>rev){
+            rev = rev*10 + x%10;
+            x = x/10;
+        }
+        return (x==rev || x==rev/10);
+    }
+//    第10题思路
+//    1, If p.charAt(j) == s.charAt(i) :  dp[i][j] = dp[i-1][j-1];
+//    2, If p.charAt(j) == '.' : dp[i][j] = dp[i-1][j-1];
+//    3, If p.charAt(j) == '*':
+//    here are two sub conditions:
+//    1   if p.charAt(j-1) != s.charAt(i) : dp[i][j] = dp[i][j-2]  //in this case, a* only counts as empty
+//    2   if p.charAt(i-1) == s.charAt(i) or p.charAt(i-1) == '.':
+//    dp[i][j] = dp[i-1][j]    //in this case, a* counts as multiple a
+//    or dp[i][j] = dp[i][j-1]   // in this case, a* counts as single a
+//    or dp[i][j] = dp[i][j-2]   // in this case, a* counts as empty
+   
+    int maxArea(vector<int> &height) {
+        int maxArea = 0;
+        int left = 0;
+        int right = height.size()-1;
+        
+        int area;
+        while (left < right) {
+            area = (right - left) * (height[left] < height[right] ? height[left] : height[right]);
+            maxArea = area > maxArea ? area : maxArea;
+            if (height[left] < height[right]) {
+                do {
+                    left++;
+                } while (left < right && height[left-1] >= height[left]);
+            } else {
+                do {
+                    right--;
+                } while (right > left && height[right+1] >= height[right]);
+            }
+        }
+        
+        return maxArea;
+    }
+    
 };
 
 int main(int argc, const char * argv[]) {
     
     Solution slution;
-    string str = "Hello, Worldd";
-    string result = slution.convert(str, 3);
     
     
     return 0;
