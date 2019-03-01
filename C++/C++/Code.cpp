@@ -240,6 +240,70 @@ public:
         return result;
     }
     
+    string longestCommonPrefix(vector<string>& strs) {
+        if(strs.size() == 0) return "";
+        int i = -1;
+        while(strs[0][++i])
+            for(int j = 0;j < strs.size();j++)
+                if(strs[j][i] != strs[0][i]) return strs[0].substr(0,i);
+        return strs[0].substr(0,i);
+    }
+    
+    ListNode *removeNthFromEnd(ListNode *head, int n) {
+
+        if (head==NULL || n <= 0) {
+            return NULL;
+        }
+        ListNode fakeHead(0);
+        fakeHead.next=head;
+        head=&fakeHead;
+        ListNode *p1, *p2;
+        p1=p2=head;
+        for (int i = 0; i < n; i++) {
+            if (p2==NULL) return NULL;
+            p2=p2->next;
+        }
+        while (p2->next!=NULL) {
+            p2=p2->next;
+            p1=p1->next;
+        }
+        p1->next = p1->next->next;
+        return head->next;
+    }
+
+    /*just swap the node's value instead of node*/
+    ListNode *swapPairs1(ListNode *head) {
+        for (ListNode *p = head; p && p->next; p = p->next->next) {
+            int n = p->val;
+            p->val = p->next->val;
+            p->next->val = n;
+        }
+        return head;
+    }
+    /*swap the list nodes physically*/
+    ListNode *swapPairs2(ListNode *head) {
+        ListNode *h = NULL;
+        //using `*p` to traverse the linked list
+        for (ListNode *p = head; p && p->next; p = p->next) {
+            //`n` is `p`'s next node, and swap `p` and `n` physcially
+            ListNode *n = p->next;
+            p->next = n->next;
+            n->next = p;
+            //using `h` as `p`'s previous node
+            if (h){
+                h->next = n;
+            }
+            h=p;
+
+            //determin the really 'head' pointer
+            if (head == p){
+                head = n;
+            }
+        }
+
+        return head;
+    }
+
 };
 
 int main(int argc, const char * argv[]) {
