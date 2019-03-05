@@ -347,7 +347,36 @@ public:
                 if (needle[j] != haystack[i + j]) break;
             }
         }
+        
     }
+    
+    int longestValidParentheses(string s) {
+        int maxLen = 0;
+        int lastError = -1;
+        vector<int> stack;
+        for(int i=0; i<s.size(); i++){
+            if (s[i] == '('){
+                stack.push_back(i);
+            }else if (s[i] == ')') {
+                if (stack.size()>0 ){
+                    stack.pop_back();
+                    int len;
+                    if (stack.size()==0){
+                        len = i - lastError;
+                    } else {
+                        len = i - stack.back();
+                    }
+                    if (len > maxLen) {
+                        maxLen = len;
+                    }
+                }else{
+                    lastError = i;
+                }
+            }
+        }
+        return maxLen;
+    }
+   
 
 };
 
@@ -355,6 +384,11 @@ int main(int argc, const char * argv[]) {
     
     Solution slution;
     
+    string s = "(()()())";
+    if (argc>1){
+        s = argv[1];
+    }
+    cout << s << " : " << slution.longestValidParentheses(s) << endl;
     
     return 0;
 }
