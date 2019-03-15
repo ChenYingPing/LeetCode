@@ -524,17 +524,31 @@ public:
         return *p == '\0';
     }
 
+    int jump(vector<int>& nums) {
+        int n = nums.size();
+        if(n<2)return 0;
+        int level=0,currentMax=0,i=0,nextMax=0;
+        
+        while(currentMax-i+1>0){        //nodes count of current level>0
+            level++;
+            for(;i<=currentMax;i++){    //traverse current level , and update the max reach of next level
+                nextMax=max(nextMax,nums[i]+i);
+                if(nextMax>=n-1)return level;   // if last element is in level+1,  then the min jump=level
+            }
+            currentMax=nextMax;
+        }
+        return 0;
+    }
 };
 
 int main(int argc, const char * argv[]) {
     
     Solution slution;
     
-    string s = "(()()())";
-    if (argc>1){
-        s = argv[1];
-    }
-    cout << s << " : " << slution.longestValidParentheses(s) << endl;
+    const char * s = "abcdfx";
+    const char * p = "a*dx";
+    
+    cout << s << " : " << slution.isMatchAAA(s, p) << endl;
     
     return 0;
 }
