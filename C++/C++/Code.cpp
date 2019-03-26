@@ -699,7 +699,42 @@ public:
         p->next = NULL;
         
         return head;
-        
+    }
+    
+    // using C++ STL vector , the code is much easy to read
+    int uniquePaths(int m, int n) {
+        vector< vector <int> >  dp (n, vector<int>(m, 1));
+        for (int row=1; row<n; row++) {
+            for (int col=1; col<m; col++) {
+                dp[row][col] = dp[row-1][col] + dp[row][col-1];
+            }
+        }
+        return dp[n-1][m-1];
+    }
+    
+    int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
+        size_t row = obstacleGrid.size();
+        size_t col = obstacleGrid[0].size();
+        vector<vector<unsigned int>>  v (row, vector<unsigned int>(col, 0));
+        unsigned int max=0;
+        for (int i=0; i<obstacleGrid.size(); i++){
+            for (int j=0; j<obstacleGrid[0].size(); j++){
+                if(obstacleGrid[i][j] == 1){
+                    max = v[i][j] = 0;
+                } else {
+                    if (i>0 && j>0) {
+                        max= v[i][j] = v[i-1][j] + v[i][j-1];
+                    }else if(i>0){
+                        max = v[i][j] = v[i-1][j];
+                    }else if(j>0){
+                        max = v[i][j] = v[i][j-1];
+                    }else{
+                        max = v[i][j] = 1 ;
+                    }
+                }
+            }
+        }
+        return max;
     }
 };
 
@@ -707,10 +742,9 @@ int main(int argc, const char * argv[]) {
     
     Solution slution;
     
-    const char * s = "abcdfx";
-    const char * p = "a*dx";
+    int m=3, n=7;
     
-    cout << s << " : " << slution.isMatchAAA(s, p) << endl;
+    printf("uniquePaths=%d\n", slution.uniquePaths(m,n));
     
     return 0;
 }
