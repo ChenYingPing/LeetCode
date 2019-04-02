@@ -786,6 +786,49 @@ public:
             while (nums[i]==0 && i>zero) swap(nums[i], nums[zero++]);
         }
     }
+    
+    vector<vector<int> > combine(int n, int k) {
+        vector<vector<int> > result;
+        vector<int> solution;
+        getCombination(n, k, solution, result);
+        return result;
+    }
+    
+    void getCombination(int n, int k, vector<int>& solution, vector< vector<int> >& result ){
+        if (k==0){
+            //sort to meet LeetCode requirement
+            vector<int> v = solution;
+            sort(v.begin(), v.end());
+            result.push_back(v);
+            return;
+        }
+        for(int i=n; i>0; i--){
+            solution.push_back(i);
+            getCombination(i-1, k-1, solution, result);
+            solution.pop_back();
+        }
+    }
+    /*
+    vector<vector<int> > combine(int n, int k) {
+        vector<vector<int> > result;
+        vector<int> solution;
+        getCombination(1, n, k, solution, result);
+        return result;
+    }
+
+    void getCombination(int start, int n, int k, vector<int> &solution, vector< vector<int> >& result ){
+        if (k==0){
+            vector<int> v = solution;
+            result.push_back(v);
+            return;
+        }
+        for(int i=start; i<=n; i++){
+            solution.push_back(i);
+            getCombination(i+1,n, k-1, solution, result);
+            solution.pop_back();
+        }
+    }
+    */
 };
 
 int main(int argc, const char * argv[]) {
