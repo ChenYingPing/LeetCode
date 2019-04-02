@@ -777,6 +777,15 @@ public:
             for(int r=0; r<matrix.size(); r++) matrix[r][0] = 0;
         }
     }
+    
+    void sortColors(vector<int>& nums) {
+        int second=nums.size()-1, zero=0;
+        for (int i=0; i<=second; i++) {
+            // use while can make sure if after swap nums[i] == 2,can also swap to second--
+            while (nums[i]==2 && i<second) swap(nums[i], nums[second--]);
+            while (nums[i]==0 && i>zero) swap(nums[i], nums[zero++]);
+        }
+    }
 };
 
 int main(int argc, const char * argv[]) {
