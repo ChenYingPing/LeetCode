@@ -11,7 +11,7 @@
 
 using namespace std;
 
-
+// 0-77
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
@@ -831,16 +831,16 @@ public:
     */
 };
 
-int main(int argc, const char * argv[]) {
-    
-    Solution slution;
-    
-    int m=3, n=7;
-    
-    printf("uniquePaths=%d\n", slution.uniquePaths(m,n));
-    
-    return 0;
-}
+//int main(int argc, const char * argv[]) {
+//    
+//    Solution slution;
+//    
+//    int m=3, n=7;
+//    
+//    printf("uniquePaths=%d\n", slution.uniquePaths(m,n));
+//    
+//    return 0;
+//}
 
 
 
