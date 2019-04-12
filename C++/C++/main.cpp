@@ -89,6 +89,27 @@ public:
         }
         return A[lo] == target ? true : false;
     }
+    
+    ListNode* deleteDuplicates(ListNode* head) {
+        if(head==nullptr) return nullptr;
+        ListNode FakeHead=ListNode(0);
+        FakeHead.next=head;
+        ListNode *pre=&FakeHead;
+        ListNode *cur=head;
+        while(cur!=nullptr){
+            while(cur->next!=nullptr&&cur->val==cur->next->val){
+                cur=cur->next;
+            }
+            if(pre->next==cur){
+                pre=pre->next;
+            }
+            else{
+                pre->next=cur->next;
+            }
+            cur=cur->next;
+        }
+        return FakeHead.next;
+    }
 };
 
 
