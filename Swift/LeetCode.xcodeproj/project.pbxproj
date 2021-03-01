@@ -7,18 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		745415151CC4BC8200521C5D /* whatever.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745415141CC4BC8200521C5D /* whatever.swift */; };
 		7489E2C11CBE2E3900CB3A5A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7489E2C01CBE2E3900CB3A5A /* AppDelegate.swift */; };
 		7489E2C61CBE2E3900CB3A5A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7489E2C41CBE2E3900CB3A5A /* Main.storyboard */; };
 		7489E2C81CBE2E3900CB3A5A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7489E2C71CBE2E3900CB3A5A /* Assets.xcassets */; };
 		7489E2CB1CBE2E3900CB3A5A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7489E2C91CBE2E3900CB3A5A /* LaunchScreen.storyboard */; };
 		7489E2D61CBE2E3A00CB3A5A /* LeetCodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7489E2D51CBE2E3A00CB3A5A /* LeetCodeTests.swift */; };
 		7489E2E11CBE2E3A00CB3A5A /* LeetCodeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7489E2E01CBE2E3A00CB3A5A /* LeetCodeUITests.swift */; };
-		74C63FD21CCA188F00EAF4F8 /* Another.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C63FD11CCA188F00EAF4F8 /* Another.swift */; };
-		74C7243C1CE431A3003F0F0F /* lifeCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C7243B1CE431A3003F0F0F /* lifeCycle.swift */; };
-		74CCB2811CD35D56002B0FAE /* maybe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CCB2801CD35D56002B0FAE /* maybe.swift */; };
-		74CDBE6A1CFECECA002F88EE /* LastOneOmg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CDBE691CFECECA002F88EE /* LastOneOmg.swift */; };
-		74D09B4E1CF2F4F600584DC5 /* Hundred.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D09B4D1CF2F4F600584DC5 /* Hundred.swift */; };
+		AFC687B425ECD90900C4DED3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC687AC25ECD90900C4DED3 /* ViewController.swift */; };
+		AFC687B525ECD90900C4DED3 /* LastOneOmg.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC687AD25ECD90900C4DED3 /* LastOneOmg.swift */; };
+		AFC687B625ECD90900C4DED3 /* Hundred.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC687AE25ECD90900C4DED3 /* Hundred.swift */; };
+		AFC687B725ECD90900C4DED3 /* lifeCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC687AF25ECD90900C4DED3 /* lifeCycle.swift */; };
+		AFC687B825ECD90900C4DED3 /* maybe.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC687B025ECD90900C4DED3 /* maybe.swift */; };
+		AFC687B925ECD90900C4DED3 /* Another.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC687B125ECD90900C4DED3 /* Another.swift */; };
+		AFC687BA25ECD90900C4DED3 /* whatever.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC687B225ECD90900C4DED3 /* whatever.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,10 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		745415141CC4BC8200521C5D /* whatever.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = whatever.swift; sourceTree = "<group>"; };
 		7489E2BD1CBE2E3900CB3A5A /* LeetCode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeetCode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7489E2C01CBE2E3900CB3A5A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7489E2C21CBE2E3900CB3A5A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7489E2C51CBE2E3900CB3A5A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7489E2C71CBE2E3900CB3A5A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7489E2CA1CBE2E3900CB3A5A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -53,11 +52,13 @@
 		7489E2DC1CBE2E3A00CB3A5A /* LeetCodeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LeetCodeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7489E2E01CBE2E3A00CB3A5A /* LeetCodeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeetCodeUITests.swift; sourceTree = "<group>"; };
 		7489E2E21CBE2E3A00CB3A5A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		74C63FD11CCA188F00EAF4F8 /* Another.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Another.swift; sourceTree = "<group>"; };
-		74C7243B1CE431A3003F0F0F /* lifeCycle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = lifeCycle.swift; sourceTree = "<group>"; };
-		74CCB2801CD35D56002B0FAE /* maybe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = maybe.swift; sourceTree = "<group>"; };
-		74CDBE691CFECECA002F88EE /* LastOneOmg.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastOneOmg.swift; sourceTree = "<group>"; };
-		74D09B4D1CF2F4F600584DC5 /* Hundred.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hundred.swift; sourceTree = "<group>"; };
+		AFC687AC25ECD90900C4DED3 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		AFC687AD25ECD90900C4DED3 /* LastOneOmg.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastOneOmg.swift; sourceTree = "<group>"; };
+		AFC687AE25ECD90900C4DED3 /* Hundred.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hundred.swift; sourceTree = "<group>"; };
+		AFC687AF25ECD90900C4DED3 /* lifeCycle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = lifeCycle.swift; sourceTree = "<group>"; };
+		AFC687B025ECD90900C4DED3 /* maybe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = maybe.swift; sourceTree = "<group>"; };
+		AFC687B125ECD90900C4DED3 /* Another.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Another.swift; sourceTree = "<group>"; };
+		AFC687B225ECD90900C4DED3 /* whatever.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = whatever.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,14 +109,9 @@
 		7489E2BF1CBE2E3900CB3A5A /* LeetCode */ = {
 			isa = PBXGroup;
 			children = (
+				AFC687B325ECD90900C4DED3 /* 第二次刷题 */,
+				AFC687AB25ECD90900C4DED3 /* 第一次刷题 */,
 				7489E2C01CBE2E3900CB3A5A /* AppDelegate.swift */,
-				7489E2C21CBE2E3900CB3A5A /* ViewController.swift */,
-				745415141CC4BC8200521C5D /* whatever.swift */,
-				74C63FD11CCA188F00EAF4F8 /* Another.swift */,
-				74CCB2801CD35D56002B0FAE /* maybe.swift */,
-				74C7243B1CE431A3003F0F0F /* lifeCycle.swift */,
-				74D09B4D1CF2F4F600584DC5 /* Hundred.swift */,
-				74CDBE691CFECECA002F88EE /* LastOneOmg.swift */,
 				7489E2C71CBE2E3900CB3A5A /* Assets.xcassets */,
 				7489E2C91CBE2E3900CB3A5A /* LaunchScreen.storyboard */,
 				7489E2CC1CBE2E3900CB3A5A /* Info.plist */,
@@ -140,6 +136,27 @@
 				7489E2E21CBE2E3A00CB3A5A /* Info.plist */,
 			);
 			path = LeetCodeUITests;
+			sourceTree = "<group>";
+		};
+		AFC687AB25ECD90900C4DED3 /* 第一次刷题 */ = {
+			isa = PBXGroup;
+			children = (
+				AFC687AC25ECD90900C4DED3 /* ViewController.swift */,
+				AFC687AD25ECD90900C4DED3 /* LastOneOmg.swift */,
+				AFC687AE25ECD90900C4DED3 /* Hundred.swift */,
+				AFC687AF25ECD90900C4DED3 /* lifeCycle.swift */,
+				AFC687B025ECD90900C4DED3 /* maybe.swift */,
+				AFC687B125ECD90900C4DED3 /* Another.swift */,
+				AFC687B225ECD90900C4DED3 /* whatever.swift */,
+			);
+			path = "第一次刷题";
+			sourceTree = "<group>";
+		};
+		AFC687B325ECD90900C4DED3 /* 第二次刷题 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "第二次刷题";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -274,13 +291,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74C63FD21CCA188F00EAF4F8 /* Another.swift in Sources */,
-				74D09B4E1CF2F4F600584DC5 /* Hundred.swift in Sources */,
-				74C7243C1CE431A3003F0F0F /* lifeCycle.swift in Sources */,
-				74CDBE6A1CFECECA002F88EE /* LastOneOmg.swift in Sources */,
-				74CCB2811CD35D56002B0FAE /* maybe.swift in Sources */,
+				AFC687B525ECD90900C4DED3 /* LastOneOmg.swift in Sources */,
+				AFC687B425ECD90900C4DED3 /* ViewController.swift in Sources */,
+				AFC687B925ECD90900C4DED3 /* Another.swift in Sources */,
+				AFC687B825ECD90900C4DED3 /* maybe.swift in Sources */,
+				AFC687B725ECD90900C4DED3 /* lifeCycle.swift in Sources */,
+				AFC687B625ECD90900C4DED3 /* Hundred.swift in Sources */,
 				7489E2C11CBE2E3900CB3A5A /* AppDelegate.swift in Sources */,
-				745415151CC4BC8200521C5D /* whatever.swift in Sources */,
+				AFC687BA25ECD90900C4DED3 /* whatever.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

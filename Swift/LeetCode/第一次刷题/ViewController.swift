@@ -8,14 +8,43 @@
 
 import UIKit
 
+
 class ViewController: UIViewController {
 
+    internal class Interval {
+        internal var start: Int
+        internal var end: Int
+        internal init(_ start: Int, _ end: Int) {
+            self.start = start
+            self.end = end
+        }
+    }
+    
+    internal class ListNode {
+        internal var val: Int
+        internal var next: ListNode?
+        internal init(_ val: Int) {
+            self.val = val
+            self.next = nil
+        }
+    }
+    internal class TreeNode {
+        internal var val: Int
+        internal var left: TreeNode?
+        internal var right: TreeNode?
+        internal init(_ val: Int) {
+            self.val = val
+            self.left = nil
+            self.right = nil
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 //        [[2,3],[4,5],[6,7],[8,9],[1,10]
 //        print(missingNumber(<#T##nums: [Int]##[Int]#>))
         
-        findMedianSortedArrays([1,2], [1,1])
+        findMedianSortedArrays(nums1: [1,2], [1,1])
     }
     
     func findMin(nums: [Int]) -> Int {
@@ -58,9 +87,9 @@ class ViewController: UIViewController {
                     let start = min(myintervals[index].start, myintervals[j].start)
                     let end = max(myintervals[index].end, myintervals[j].end)
                     let node = Interval(start, end)
-                    myintervals.removeAtIndex(index)
-                    myintervals.removeAtIndex(j-1)
-                    myintervals.insert(node, atIndex: 0)
+                    myintervals.remove(at: index)
+                    myintervals.remove(at: j-1)
+                    myintervals.insert(node, at: 0)
                     index = 0
                     j = index + 1  // 有点回溯法的感觉，添加完之后，应该回头重新开始比较
                 } else {
@@ -106,7 +135,7 @@ class ViewController: UIViewController {
     
     var array: [String] = []
     func generateParenthesis(n: Int) -> [String] {
-        addingpar("", n: n, m: 0)
+        addingpar(str: "", n: n, m: 0)
         return array
     }
      // 这个简直绝了，把每一个之路都通过递归使之都有一个addingpar方法对应。等于数组有多少个，就有调用了多少次addingpar方法
@@ -115,20 +144,20 @@ class ViewController: UIViewController {
             array.append(str)
             return;
         }
-        if(m > 0){ addingpar(str+")", n: n, m: m-1) }
-        if(n > 0){ addingpar(str+"(", n: n-1, m: m+1) }
+        if(m > 0){ addingpar(str: str+")", n: n, m: m-1) }
+        if(n > 0){ addingpar(str: str+"(", n: n-1, m: m+1) }
     }
     
     func maxCoins(nums: [Int]) -> Int {
         var result = 0
         var mynums = nums
         while mynums.count > 0 {
-            let index = findMinnum(mynums);
-            mynums.insert(1, atIndex: 0)
+            let index = findMinnum(nums: mynums);
+            mynums.insert(1, at: 0)
             mynums.append(1)
             result += mynums[index] * mynums[index + 1] * mynums[index + 2]
-            mynums.removeAtIndex(index + 1)
-            mynums.removeAtIndex(0)
+            mynums.remove(at: index + 1)
+            mynums.remove(at: 0)
             mynums.removeLast()
         }
         return result
@@ -166,59 +195,61 @@ class ViewController: UIViewController {
     
     func findMedianSortedArrays(nums1: [Int], _ nums2: [Int]) -> Double {
         // 归并排序，算法为时间复杂度logn
-        var tmpArr: [Int] = []
-        for _ in 0..<nums1.count+nums2.count {
-            tmpArr.append(1)
-        }
-        var lowPos = 0
-        var highPos = 0
-        let highEnd = nums2.count - 1
-        let lowEnd = nums1.count - 1
-        var tmpPos = lowPos;
-        // 将arr中的记录由小到大归并入tmpArr
-        while (lowPos <= lowEnd && highPos <= highEnd){
-            if (nums1[lowPos] <= nums2[highPos]){
-                tmpArr[tmpPos++] = nums1[lowPos++];
-            }else{
-                tmpArr[tmpPos++] = nums2[highPos++];
-            }
-        }
-        // 将剩余的arr[low..mid]复制到tmpArr
-        while (lowPos <= lowEnd){
-            tmpArr[tmpPos++] = nums1[lowPos++];
-        }
+//        var tmpArr: [Int] = []
+//        for _ in 0..<nums1.count+nums2.count {
+//            tmpArr.append(1)
+//        }
+//        var lowPos = 0
+//        var highPos = 0
+//        let highEnd = nums2.count - 1
+//        let lowEnd = nums1.count - 1
+//        var tmpPos = lowPos;
+//        // 将arr中的记录由小到大归并入tmpArr
+//        while (lowPos <= lowEnd && highPos <= highEnd){
+//            if (nums1[lowPos] <= nums2[highPos]){
+//                tmpArr[tmpPos++] = nums1[lowPos++];
+//            }else{
+//                tmpArr[tmpPos++] = nums2[highPos++];
+//            }
+//        }
+//        // 将剩余的arr[low..mid]复制到tmpArr
+//        while (lowPos <= lowEnd){
+//            tmpArr[tmpPos++] = nums1[lowPos++];
+//        }
+//
+//        // 将剩余的arr[mid+1..high]复制到tmpArr
+//        while (highPos <= highEnd){
+//            tmpArr[tmpPos++] = nums2[highPos++];
+//        }
+//        if tmpArr.count % 2 == 0 {
+//            let median = tmpArr.count / 2
+//            let sum = tmpArr[median] + tmpArr[median - 1]
+//            return Double(sum) / 2
+//        } else {
+//            let median = tmpArr.count / 2
+//            return Double(tmpArr[median])
+//        }
         
-        // 将剩余的arr[mid+1..high]复制到tmpArr
-        while (highPos <= highEnd){
-            tmpArr[tmpPos++] = nums2[highPos++];
-        }
-        if tmpArr.count % 2 == 0 {
-            let median = tmpArr.count / 2
-            let sum = tmpArr[median] + tmpArr[median - 1]
-            return Double(sum) / 2
-        } else {
-            let median = tmpArr.count / 2
-            return Double(tmpArr[median])
-        }
+        return 0;
     }
     
-    func hasPathSum(root: TreeNode?, _ sum: Int) -> Bool {
-        if root == nil {
-            return false
-        }
-        if sum == root!.val && root?.left == nil && root?.right == nil {
-            return true
-        }
-        return hasPathSum(root?.left, sum - root!.val) || hasPathSum(root?.right, sum - root!.val)
-    }
+//    func hasPathSum(root: TreeNode?, _ sum: Int) -> Bool {
+//        if root == nil {
+//            return false
+//        }
+//        if sum == root!.val && root?.left == nil && root?.right == nil {
+//            return true
+//        }
+//        return hasPathSum(root?.left, sum - root!.val) || hasPathSum(root?.right, sum - root!.val)
+//    }
     
     // 是否是平衡二叉树
     func isBalanced(root: TreeNode?) -> Bool {
         if root == nil {
             return true
         }
-        if -1 <= (maxDepth(root?.left) - maxDepth(root?.right)) && (maxDepth(root?.left) - maxDepth(root?.right)) <= 1 {
-            return isBalanced(root?.left) && isBalanced(root?.right)
+        if -1 <= (maxDepth(root: root?.left) - maxDepth(root: root?.right)) && (maxDepth(root: root?.left) - maxDepth(root: root?.right)) <= 1 {
+            return isBalanced(root: root?.left) && isBalanced(root: root?.right)
         }
         return false
     }
@@ -226,8 +257,8 @@ class ViewController: UIViewController {
         if root == nil {
             return 0
         }
-        let left = minDepth(root?.left)
-        let right = minDepth(root?.right)
+        let left = minDepth(root: root?.left)
+        let right = minDepth(root: root?.right)
         return (left == 0 || right == 0) ? left + right + 1 : 1 + min(left, right)
     }
     
@@ -236,7 +267,7 @@ class ViewController: UIViewController {
         if root == nil {
             return 0
         }
-        return 1 + max(maxDepth(root?.left), maxDepth(root?.right))
+        return 1 + max(maxDepth(root: root?.left), maxDepth(root: root?.right))
     }
     
     // 遍历二叉树
@@ -264,12 +295,12 @@ class ViewController: UIViewController {
             result.append(currentLevel)
             level = nextLevel
         }
-        return result.reverse()
+        return result.reversed()
     }
     
     // 二叉树是否对称
     func isSymmetric(root: TreeNode?) -> Bool {
-        return isSymmetric(root?.left, right: root?.right)
+        return isSymmetric(left: root?.left, right: root?.right)
     }
     
     func isSymmetric(left: TreeNode?, right: TreeNode?) -> Bool {
@@ -277,7 +308,7 @@ class ViewController: UIViewController {
             return true
         }
         if left?.val == right?.val {
-            return isSymmetric(left?.left, right: right?.right) && isSymmetric(left?.right, right: right?.left)
+            return isSymmetric(left: left?.left, right: right?.right) && isSymmetric(left: left?.right, right: right?.left)
         } else {
             return false
         }
@@ -291,8 +322,8 @@ class ViewController: UIViewController {
         let temp: TreeNode? = root?.left
         root?.left = root?.right
         root?.right = temp
-        invertTree(root?.left)
-        invertTree(root?.right)
+        invertTree(root: root?.left)
+        invertTree(root: root?.right)
         return root
     }
     
@@ -302,7 +333,7 @@ class ViewController: UIViewController {
             return true
         }
         if p?.val == q?.val {
-            return isSameTree(p?.left, q?.left) && isSameTree(p?.right, q?.right)
+            return isSameTree(p: p?.left, q?.left) && isSameTree(p: p?.right, q?.right)
         }
         return false
     }
