@@ -41,14 +41,14 @@ class maybe: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         var arr = [1]
-        print(merge(&arr, 1, [], 0))
+//        print(merge(&arr, 1, [], 0))
     }
 
     func minPathSum(grid: [[Int]]) -> Int {
         myobstacleGrid = grid
         let m = grid.count - 1
         let n = (grid.first?.count)! - 1
-        huisu(m, n: n, minpath: 0)
+        huisu(m: m, n: n, minpath: 0)
         return result
     }
     
@@ -65,12 +65,12 @@ class maybe: UIViewController
             }
             return
         } else if m > 0 && n > 0 {
-            huisu(m-1, n: n,minpath: minsumPath)
-            huisu(m, n: n-1, minpath: minsumPath)
+            huisu(m: m-1, n: n,minpath: minsumPath)
+            huisu(m: m, n: n-1, minpath: minsumPath)
         } else if m > 0 && n == 0 {
-            huisu(m-1, n: n,minpath: minsumPath)
+            huisu(m: m-1, n: n,minpath: minsumPath)
         } else if n > 0 && m == 0 {
-            huisu(m, n: n-1,minpath: minsumPath)
+            huisu(m: m, n: n-1,minpath: minsumPath)
         }
     }
     
@@ -85,7 +85,7 @@ class maybe: UIViewController
         return 0
     }
     
-    func setZeroes(inout matrix: [[Int]]) {
+    func setZeroes( matrix: inout [[Int]]) {
         let row = matrix.count
         let col = matrix.count > 0 ? matrix.first!.count : 0
         var mapi: [Int : Int] = [:]
@@ -124,7 +124,7 @@ class maybe: UIViewController
             let mid = (lo + hi) / 2
             if target == matrix[mid].last {
                 return true
-            } else if target > matrix[mid].last {
+            } else if target > matrix[mid].last ?? 0 {
                 lo = mid + 1
             } else {
                 hi = mid - 1
@@ -147,20 +147,20 @@ class maybe: UIViewController
         return false
     }
     
-    func sortColors(inout nums: [Int]) {  // 快速排序
+    func sortColors( nums: inout [Int]) {  // 快速排序
         let count = nums.count
-        quickSort(&nums, low: 0, high: count-1)
+        quickSort(nums: &nums, low: 0, high: count-1)
     }
     
-    func quickSort(inout nums: [Int], low: Int, high: Int) {
+    func quickSort( nums: inout [Int], low: Int, high: Int) {
         if low < high {
-            let pivot = partition(&nums, low: low, high: high)
-            quickSort(&nums, low: low, high: pivot - 1)
-            quickSort(&nums, low: pivot + 1, high: high)
+            let pivot = partition(nums: &nums, low: low, high: high)
+            quickSort(nums: &nums, low: low, high: pivot - 1)
+            quickSort(nums: &nums, low: pivot + 1, high: high)
         }
     }
     
-    func partition(inout nums: [Int], low: Int, high: Int) -> Int {
+    func partition( nums: inout [Int], low: Int, high: Int) -> Int {
         var mylow = low
         var myhigh = high
         let pivot = nums[low]
@@ -186,36 +186,36 @@ class maybe: UIViewController
         var comb: [Int] = []
         let count = nums.count
         for k in 0...count {
-            combine(&mynums, combs: &combs, comb: &comb, start: 0, n: count, k: k)
+            combine(nums: &mynums, combs: &combs, comb: &comb, start: 0, n: count, k: k)
         }
         return combs
     }
     
-    func combine(inout nums: [Int], inout combs: [[Int]], inout comb: [Int], start: Int, n: Int, k: Int) {
+    func combine( nums: inout [Int], combs: inout [[Int]], comb: inout [Int], start: Int, n: Int, k: Int) {
         if k == 0 {
-            combs.append(comb.sort())
+            combs.append(comb.sorted())
             return
         }
-        for(var i = start; i < n; i += 1) {
-            comb.append(nums[i])
-            combine(&nums, combs: &combs, comb: &comb, start: i+1, n: n, k: k-1)
-            comb.removeLast()
-        }
+//        for(var i = start; i < n; i += 1) {
+//            comb.append(nums[i])
+//            combine(&nums, combs: &combs, comb: &comb, start: i+1, n: n, k: k-1)
+//            comb.removeLast()
+//        }
     }
     
     // MARK: - leetCode NO.79
     
     func exist(board: [[Character]], _ word: String) -> Bool {
         var wordArr: [Character] = []
-        for char in word.characters {
+        for char in word {
             wordArr.append(char)
         }
         let rows = board.count
         let cols = board.first!.count
         for i in 0 ..< rows {
             for j in 0 ..< cols {
-                if word.characters.first == board[i][j] {
-                    if exist(board, y: i, x: j, word: wordArr, i: 0) {
+                if word.first == board[i][j] {
+                    if exist(board: board, y: i, x: j, word: wordArr, i: 0) {
                         return true
                     }
                 }
@@ -232,18 +232,18 @@ class maybe: UIViewController
         if (board[y][x] != word[i])  { return false }
         var myboard = board
         myboard[y][x] = Character.init("~") // 只能希望board[y][x]不等于 ~ 字符了
-        let result = exist(myboard, y: y, x: x-1, word: word, i: i+1) || exist(myboard, y: y-1, x: x, word: word, i: i+1) || exist(myboard, y: y, x: x+1, word: word, i: i+1) || exist(myboard, y: y+1, x: x, word: word, i: i+1)
+        let result = exist(board: myboard, y: y, x: x-1, word: word, i: i+1) || exist(board: myboard, y: y-1, x: x, word: word, i: i+1) || exist(board: myboard, y: y, x: x+1, word: word, i: i+1) || exist(board: myboard, y: y+1, x: x, word: word, i: i+1)
         return result
     }
     
     // MARK: - leetCode NO.80
     
-    func removeDuplicates(inout nums: [Int]) -> Int {
-        nums.sortInPlace()
+    func removeDuplicates( nums: inout [Int]) -> Int {
+        nums.sorted()
         var i = 0
         while i < nums.count - 3 {
             if nums[i] == nums[i+1] && nums[i] == nums[i+2] {
-                nums.removeAtIndex(i)
+                nums.remove(at: i)
             } else {
                 i += 1
             }
@@ -254,7 +254,7 @@ class maybe: UIViewController
     // MARK: - leetCode NO.81
     
     func search(nums: [Int], _ target: Int) -> Bool {
-        let mynus = nums.sort()
+        let mynus = nums.sorted()
         var lo = 0
         var hi = mynus.count - 1
         while lo <= hi {
@@ -292,21 +292,22 @@ class maybe: UIViewController
     // MARK: - leetCode NO.84
     
     func largestRectangleArea(heights: [Int]) -> Int { //http://www.cnblogs.com/felixfang/p/3676193.html 解释在这里，看完解释再看代码就容易理解了. 下面的解法比文章还做了改进。时间复杂度为O(n)
-        let len = heights.count
-        var s: [Int] = []
-        var maxArea = 0;
-        for(var i = 0; i <= len; i += 1){
-            let h = (i == len ? 0 : heights[i]);
-            if(s.isEmpty || h >= heights[s.last!]){
-                s.append(i)
-            }else{
-                let tp = s.last
-                s.removeLast()
-                maxArea = max(maxArea, heights[tp!] * (s.isEmpty ? i : i - 1 - s.last!));
-                i -= 1;
-            }
-        }
-        return maxArea;
+//        let len = heights.count
+//        var s: [Int] = []
+//        var maxArea = 0;
+//        for(var i = 0; i <= len; i += 1){
+//            let h = (i == len ? 0 : heights[i]);
+//            if(s.isEmpty || h >= heights[s.last!]){
+//                s.append(i)
+//            }else{
+//                let tp = s.last
+//                s.removeLast()
+//                maxArea = max(maxArea, heights[tp!] * (s.isEmpty ? i : i - 1 - s.last!));
+//                i -= 1;
+//            }
+//        }
+//        return maxArea;
+        return 2
     }
     
     // MARK: - leetCode NO.86
@@ -334,21 +335,21 @@ class maybe: UIViewController
     
     // MARK: - leetCode NO.88
     
-    func merge(inout nums1: [Int], _ m: Int, _ nums2: [Int], _ n: Int) {
-        var lowNum1 = 0
-        var lowNum2 = 0
-        var tempArr:[Int] = []
-        while lowNum1 < m && lowNum2 < n {
-            let temp = nums1[lowNum1] < nums2[lowNum2] ? nums1[lowNum1++] : nums2[lowNum2++]
-            tempArr.append(temp)
-        }
-        while lowNum1 < m {
-            tempArr.append(nums1[lowNum1++])
-        }
-        while lowNum2 < n {
-            tempArr.append(nums2[lowNum2++])
-        }
-        nums1 = tempArr
+    func merge( nums1: inout [Int], _ m: Int, _ nums2: [Int], _ n: Int) {
+//        var lowNum1 = 0
+//        var lowNum2 = 0
+//        var tempArr:[Int] = []
+//        while lowNum1 < m && lowNum2 < n {
+//            let temp = nums1[lowNum1] < nums2[lowNum2] ? nums1[lowNum1++] : nums2[lowNum2++]
+//            tempArr.append(temp)
+//        }
+//        while lowNum1 < m {
+//            tempArr.append(nums1[lowNum1++])
+//        }
+//        while lowNum2 < n {
+//            tempArr.append(nums2[lowNum2++])
+//        }
+//        nums1 = tempArr
 }
     // MARK: - leetCode NO.87
 //    public class Solution {

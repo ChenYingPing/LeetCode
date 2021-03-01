@@ -48,14 +48,16 @@ class Another: UIViewController
         var newnum = nums.filter {
             return $0 > 0
         }
-        newnum.sortInPlace()
-        for (var i = 1; i < newnum.count; i += 1) {
+        newnum.sort()
+        
+        
+        for i in 0..<newnum.count {
             if i > newnum.count - 1 {
                 break
             }
             if i > 0 && newnum[i] == newnum[i - 1] {
-                newnum.removeAtIndex(i)
-                i -= 1
+                newnum.remove(at: i)
+//                i -= 1
             }
         }
         if newnum.count == 0{
@@ -108,45 +110,45 @@ class Another: UIViewController
     }
     
     func reverseString(s: String) -> String {
-        if s.characters.count == 1 {
+        if s.count == 1 {
             return s
         }
         
-        let count = s.characters.count / 2
+        let count = s.count / 2
         var mys = ""
         
-        mys += reverseString(s.substringFromIndex(s.startIndex.advancedBy(count)))
-        mys += reverseString(s.substringToIndex(s.startIndex.advancedBy(count)))
+//        mys += reverseString(s.substringFromIndex(s.startIndex.advancedBy(count)))
+//        mys += reverseString(s.substringToIndex(s.startIndex.advancedBy(count)))
         return mys
     }
     
-    func groupAnagrams(strs: [String]) -> [[String]] {
-        if strs.count < 2 {
-            return [strs]
-        }
-        var arr: [[String]] = []
-        var containDict: [String : [String]] = [:] // 判断是不是已经包含了这个数字
-        for str in strs {
-            let key: String = str.characters.sort().description
-            if var tempArr = containDict[key] {
-                tempArr.append(str)
-                tempArr.sortInPlace()
-                containDict[key] = tempArr
-            } else {
-                var temp: [String] = []
-                temp.append(str)
-                containDict[key] = temp
-            }
-        }
-        for value in containDict.values {
-            arr.append(value)
-        }
-        return arr
-    }
+//    func groupAnagrams(strs: [String]) -> [[String]] {
+//        if strs.count < 2 {
+//            return [strs]
+//        }
+//        var arr: [[String]] = []
+//        var containDict: [String : [String]] = [:] // 判断是不是已经包含了这个数字
+//        for str in strs {
+//            let key: String = str.sort().description
+//            if var tempArr = containDict[key] {
+//                tempArr.append(str)
+//                tempArr.sorted()
+//                containDict[key] = tempArr
+//            } else {
+//                var temp: [String] = []
+//                temp.append(str)
+//                containDict[key] = temp
+//            }
+//        }
+//        for value in containDict.values {
+//            arr.append(value)
+//        }
+//        return arr
+//    }
     
-    func combineWithSameChar(str1: String, str2: String) -> Bool {
-        return str1.characters.sort() == str2.characters.sort()
-    }
+//    func combineWithSameChar(str1: String, str2: String) -> Bool {
+//        return str1.sort() == str2.sort()
+//    }
     
     func myPow(x: Double, _ n: Int) -> Double {
         if n == 1 {
@@ -156,9 +158,9 @@ class Another: UIViewController
             return pow(123, 123456)
         }
         if n < 0 {
-            return 1/x * myPow(1/x, -n-1)
+            return 1/x * myPow(x: Double(1/Int(x)), Int(Double(-n-1)))
         } else {
-            return x * myPow(x, n-1)
+            return x * myPow(x: Double(Int(x)), n-1)
         }
     }
     
@@ -167,14 +169,14 @@ class Another: UIViewController
     var rows: [Int] = []
     var resultArr: [[String]] = []
     func solveNQueens(n: Int) -> [[String]] { // N皇后算法，求得所有的解
-        rows = Array.init(count: n, repeatedValue: 0)  // 每一行中皇后的位置
-        getArrangement(0, maxqueen: n)
+        rows = Array.init(repeating: 0, count: n)  // 每一行中皇后的位置
+        getArrangement(n: 0, maxqueen: n)
         return resultArr
     }
     
     func getArrangement(n: Int, maxqueen: Int) {
         // 第n行中所有列的值初始化都为false
-        var cols:[Bool] = Array(count: maxqueen, repeatedValue: false)
+        var cols:[Bool] = Array(repeating: false, count: maxqueen )
         for i in 0 ..< n { // 比n小的前面几行，找出皇后所在位置，并标记在对角线方法或者直线方向的位置无效
             cols[rows[i]]=true
             let d = n-i
@@ -187,7 +189,7 @@ class Another: UIViewController
             //设置第n行的合法位置为i
             rows[n] = i
             if(n<maxqueen-1){
-                getArrangement(n+1,maxqueen: maxqueen)
+                getArrangement(n: n+1,maxqueen: maxqueen)
             }else{  // 找到了一种新的摆放方式
                 var tempArr: [String] = []
                 for i in 0 ..< maxqueen {
@@ -207,8 +209,8 @@ class Another: UIViewController
     }
     
     func generateMatrix(n: Int) -> [[Int]] {  // 螺旋矩阵的问题
-        let arr = Array.init(count: n, repeatedValue: 0)
-        var result: [[Int]] = Array.init(count: n, repeatedValue: arr)
+        let arr = Array.init(repeating: 0, count: n)
+        var result: [[Int]] = Array.init(repeating: arr, count: n)
         var cur = 0
         var x = 0
         var y = -1
@@ -250,7 +252,7 @@ class Another: UIViewController
         var y = -1
         var containDict: [Int : Int] = [:]
         while cur < max {
-            while y + 1 < col && containDict[matrix[x][y+1]] == nil {
+            while y + 1 < col ?? 0 && containDict[matrix[x][y+1]] == nil {
                 y += 1
                 cur += 1
                 result.append(matrix[x][y])
@@ -292,15 +294,18 @@ class Another: UIViewController
         var res: [Interval] = []
         var i = 0
         while i < intervals.count && intervals[i].end < newInterval.start {
-            res.append(intervals[i++])
+            res.append(intervals[i])
+            i+=1;
         }
         while i < intervals.count && intervals[i].start <= newInterval.end  { // 这一句话要多理解一下，特别是判断条件，当我的start已经大于你的end，说明我已经不在你的范围内了，不用合并我，我是新的需要加入的结点
             newInterval.start = min(intervals[i].start, newInterval.start)
-            newInterval.end = max(intervals[i++].end, newInterval.end)
+            newInterval.end = max(intervals[i].end, newInterval.end)
+            i+=1;
         }
         res.append(newInterval)
         while i < intervals.count {
-            res.append(intervals[i++])
+            res.append(intervals[i])
+            i+=1;
         }
         return res
     }

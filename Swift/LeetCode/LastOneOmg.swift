@@ -41,7 +41,7 @@ class LastOneOmg: UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(rob([2,1,1,2]))
+        print(rob(nums: [2,1,1,2]))
     }
     
     // MARK: - leetcode NO.188
@@ -51,7 +51,7 @@ class LastOneOmg: UIViewController
     
     // MARK: - leetcode NO.189
     
-    func rotate(inout nums: [Int], _ k: Int) {
+    func rotate( nums: inout [Int], _ k: Int) {
         //        let m = nums.count
         //        let k = k % m
         //        for _ in 0 ..< k {
@@ -68,7 +68,7 @@ class LastOneOmg: UIViewController
         var k = k % m
         while k > 0 {
             let num = nums.popLast()
-            nums.insert(num!, atIndex: 0)
+            nums.insert(num!, at: 0)
             k -= 1
         }
     }
@@ -114,19 +114,19 @@ class LastOneOmg: UIViewController
     
     func rightSideView(root: TreeNode?) -> [Int] {
         var res: [Int] = []
-        rightView(root, res: &res, level: 0)
+        rightView(root: root, res: &res, level: 0)
         return res
     }
     
-    func rightView(root: TreeNode?, inout res: [Int], level: Int) {
+    func rightView(root: TreeNode?, res: inout [Int], level: Int) {
         if root == nil {
             return
         }
         if level == res.count {  // 说明这一层是新的一层，否则则是已经有数字被看到了
             res.append(root!.val)
         }
-        rightView(root?.right, res: &res, level: level+1)
-        rightView(root?.left, res: &res, level: level+1)
+        rightView(root: root?.right, res: &res, level: level+1)
+        rightView(root: root?.left, res: &res, level: level+1)
     }
     
     // MARK: - leetcode NO.200
@@ -140,7 +140,7 @@ class LastOneOmg: UIViewController
         for i in 0 ..< m {
             for j in 0 ..< n {
                 if grid[i][j] == Character.init("1") {
-                    checkGrid(&grid, i: i, j: j)
+                    checkGrid(grid: &grid, i: i, j: j)
                     res += 1
                 }
             }
@@ -148,29 +148,29 @@ class LastOneOmg: UIViewController
         return res
     }
     
-    func  checkGrid(inout grid: [[Character]], i: Int, j: Int) {
+    func  checkGrid( grid: inout [[Character]], i: Int, j: Int) {
         let m = grid.count
         let n = grid.first!.count
         if i < 0 || i >= m || j < 0 || j >= n { return }
         if grid[i][j] != Character.init("1") { return }
         grid[i][j] = Character("0")
-        checkGrid(&grid, i: i+1, j: j)
-        checkGrid(&grid, i: i, j: j+1)
-        checkGrid(&grid, i: i-1, j: j)
-        checkGrid(&grid, i: i, j: j-1)
+        checkGrid(grid: &grid, i: i+1, j: j)
+        checkGrid(grid: &grid, i: i, j: j+1)
+        checkGrid(grid: &grid, i: i-1, j: j)
+        checkGrid(grid: &grid, i: i, j: j-1)
     }
     
     // MARK: - leetcode NO.202
     
     func isHappy(n: Int) -> Bool {  // 这题在leetcode上discuss里有更好的解法
-        var sum = Helper(n)
+        var sum = Helper(n: n)
         var map: [Int: Bool] = [:]
         while sum != 1 {
             if map[sum] != nil {
                 return false
             }
             map[sum] = true
-            sum = Helper(sum)
+            sum = Helper(n: sum)
         }
         return true
     }
@@ -229,11 +229,11 @@ class LastOneOmg: UIViewController
         if (nums.count == 0) { return 0 }
         var i = 0, j = 0, sum = 0, minValue = Int.max
         while (j < nums.count) {
-            sum += nums[j++]
-            while (sum >= s) { // perfect
-                minValue = min(minValue, j - i)
-                sum -= nums[i++]
-            }
+//            sum += nums[j++]
+//            while (sum >= s) { // perfect
+//                minValue = min(minValue, j - i)
+//                sum -= nums[i++]
+//            }
         }
         return minValue == Int.max ? 0 : minValue
     }

@@ -43,11 +43,11 @@ class whatever: UIViewController
         
         super.viewDidLoad()
         
-        let array: Array = [1,2,3,4,5,6,7]
+        var array: Array = [1,2,3,4,5,6,7]
         let arr = array.map { // 对数组元素进行遍历，并进行某些转换，返回的是一个数组
              return $0
         }
-        let arr1 = array.flatMap { // 与map方法类似，与之不同的是flatmap可以会把optional.None过滤出去，并且对于数组嵌套数组的情况，会打破嵌套，合并为一个新的数组。而map会保留optional.None和原先的嵌套结构
+        let arr1 = array.compactMap { // 与map方法类似，与之不同的是flatmap可以会把optional.None过滤出去，并且对于数组嵌套数组的情况，会打破嵌套，合并为一个新的数组。而map会保留optional.None和原先的嵌套结构
             return $0 > 3
         }
         let arr2 = array.filter { // 对数组里的元素进行过滤操作，保留满足条件的元素并组合一个新的数组返回
@@ -56,7 +56,7 @@ class whatever: UIViewController
         let arr3 = array.reduce(1) { // 对数组里的元素进行一个整合，例如求和，或者求积
             return $0 * $1
         }
-        let res = array.sort { (num1, num2) -> Bool in
+        let res: () = array.sort { (num1, num2) -> Bool in
             return num1 > num2
         }
         array.forEach { (num) in // 高级函数遍历
@@ -101,7 +101,7 @@ class whatever: UIViewController
             }
             return result
         }
-        let mynums = nums.sort()  // mynums : -1 -1 0 1
+        let mynums = nums.sorted()  // mynums : -1 -1 0 1
         var result = nums[0]+nums[1]+nums[2]
         for index in 0..<mynums.count - 2 {
             var lo = index + 1
@@ -141,13 +141,14 @@ class whatever: UIViewController
 
     
     func isPalindromicString(s: String) -> Bool {
-        let num = s.characters.count / 2
-        var myS = s.substringFromIndex(s.startIndex.advancedBy(num))
+        let num = s.count / 2
+//        var myS = s.substringFromIndex(s.startIndex.advancedBy(num))
+        var myS = "";
         let string = myS
         var compareStr = ""
-        while myS.characters.count > 0 {
-            compareStr += myS.substringFromIndex(myS.endIndex.advancedBy(-1))
-            myS.removeAtIndex(myS.endIndex.advancedBy(-1))
+        while myS.count > 0 {
+//            compareStr += myS.substringFromIndex(myS.endIndex.advancedBy(-1))
+//            myS.removeAtIndex(myS.endIndex.advancedBy(-1))
         }
         if string == compareStr {
             return true
@@ -157,11 +158,12 @@ class whatever: UIViewController
     
     func fourSum(nums: [Int], _ target: Int) -> [[Int]] {
         if nums.count < 4 { return [] }  // mynums -3 -1 0 2 4 5
-        var mynums = nums.sort()
+        let mynums = nums.sorted()
         var result:[[Int]] = []
         for index in 0..<mynums.count-1 {
             if index != 0 && mynums[index] == mynums[index - 1]  {continue}
-            for (var j = mynums.count-1; j > index; j -= 1) {
+            for j in mynums.count-1...0 {
+//            for (var j = mynums.count-1; j > index; j -= 1) {
                 if j != mynums.count-1 && mynums[j] == mynums[j + 1] {continue}
                 var lo = index + 1
                 let sum = target - mynums[index] - mynums[j]
@@ -216,7 +218,7 @@ class whatever: UIViewController
     func mergeKLists(lists: [ListNode?]) -> ListNode? {
         if (lists.count==0) {return nil}
         if (lists.count==1) {return lists[0]}
-        if (lists.count==2) {return merge(lists[0], second: lists[1])}
+        if (lists.count==2) {return merge(first: lists[0], second: lists[1])}
         var first:[ListNode?] = []
         var second:[ListNode?] = []
         for index in 0..<lists.count {
@@ -226,22 +228,22 @@ class whatever: UIViewController
                 second.append(lists[index])
             }
         }
-        return merge(mergeKLists(first),
-                             second: mergeKLists(second))
+        return merge(first: mergeKLists(lists: first),
+                     second: mergeKLists(lists: second))
     }
     
     func merge( first: ListNode?, second: ListNode?) -> ListNode? {
         if first == nil {
             return second
         }
-        if second == nil {
+        if  second == nil {
             return first
         }
-        if first?.val < second?.val {  // 这么简单的递归我竟然没想到
-            first?.next = merge(first?.next, second: second)
+        if first?.val ?? 0  < second?.val ?? 0 {  // 这么简单的递归我竟然没想到
+            first?.next = merge(first: first?.next, second: second)
             return first
         } else {
-            second?.next = merge(first, second: second?.next)
+            second?.next = merge(first: first, second: second?.next)
             return second
         }
     }
@@ -281,7 +283,7 @@ class whatever: UIViewController
 //        // 1.先把所有的words存放到一个字典中
 //        // 2.对s进行遍历，并且取出word长度的子字符串。把取出来的子字符串与words中的
 //    }
-    func nextPermutation(inout nums: [Int]) {
+    func nextPermutation( nums: inout [Int]) {
         var pos = -1
         for i in 0..<nums.count {
             if nums[i] < nums[i+1] {
@@ -290,7 +292,7 @@ class whatever: UIViewController
             }
         }
         if pos < 0 {
-            nums.sortInPlace()
+            nums.sort()
             return
         }
         for i in nums.count-1...0 {
@@ -301,10 +303,10 @@ class whatever: UIViewController
                 break
             }
         }
-        reverseArray(&nums, begin: pos + 1, end: nums.count - 1)
+        reverseArray(num: &nums, begin: pos + 1, end: nums.count - 1)
     }
     
-    func reverseArray(inout num: [Int], begin: Int, end : Int) {
+    func reverseArray( num: inout [Int], begin: Int, end : Int) {
         var l = begin, r = end;
         while (l < r) {
             let tmp = num[l];
@@ -315,15 +317,15 @@ class whatever: UIViewController
         }
     }
     func longestValidParentheses(s: String) -> Int {
-        let n = s.characters.count
+        let n = s.count
         var longest = 0
         var arr:[Int] = []
         for i in 0..<n {
-            if (s as NSString).substringWithRange(NSMakeRange(i, 1)) == "(" {
+            if (s as NSString).substring(with: NSMakeRange(i, 1)) == "(" {
                 arr.append(i)
             } else {
                 if !arr.isEmpty {
-                    if NSString(string: s as String).substringWithRange(NSMakeRange(arr.last!, 1)) == "(" {
+                    if NSString(string: s as String).substring(with: NSMakeRange(arr.last!, 1)) == "(" {
                         arr.removeLast()
                     } else {
                         arr.append(i)
