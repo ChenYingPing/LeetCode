@@ -111,8 +111,8 @@
 		7489E2BF1CBE2E3900CB3A5A /* LeetCode */ = {
 			isa = PBXGroup;
 			children = (
-				AFC744E5263A5D3A00C5B96A /* 16年第一次刷题  */,
-				AFC744ED263A5D3A00C5B96A /* 21年第二次刷题 */,
+				AFC744E5263A5D3A00C5B96A /* 16Y */,
+				AFC744ED263A5D3A00C5B96A /* 21Y */,
 				7489E2C01CBE2E3900CB3A5A /* AppDelegate.swift */,
 				7489E2C71CBE2E3900CB3A5A /* Assets.xcassets */,
 				7489E2C91CBE2E3900CB3A5A /* LaunchScreen.storyboard */,
@@ -140,7 +140,7 @@
 			path = LeetCodeUITests;
 			sourceTree = "<group>";
 		};
-		AFC744E5263A5D3A00C5B96A /* 16年第一次刷题  */ = {
+		AFC744E5263A5D3A00C5B96A /* 16Y */ = {
 			isa = PBXGroup;
 			children = (
 				AFC744E6263A5D3A00C5B96A /* ViewController.swift */,
@@ -151,15 +151,15 @@
 				AFC744EB263A5D3A00C5B96A /* Another.swift */,
 				AFC744EC263A5D3A00C5B96A /* whatever.swift */,
 			);
-			path = "16年第一次刷题 ";
+			path = 16Y;
 			sourceTree = "<group>";
 		};
-		AFC744ED263A5D3A00C5B96A /* 21年第二次刷题 */ = {
+		AFC744ED263A5D3A00C5B96A /* 21Y */ = {
 			isa = PBXGroup;
 			children = (
 				AFC744EE263A5D3A00C5B96A /* 2021Reload.swift */,
 			);
-			path = "21年第二次刷题";
+			path = 21Y;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
