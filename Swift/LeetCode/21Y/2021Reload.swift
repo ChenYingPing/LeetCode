@@ -285,4 +285,169 @@ class ReloadLeetcode: UIViewController
         
         return sum
     }
+    
+    func maxProductAfterCutting_colution1(length :Int) -> Int {
+        if length < 2 {
+            return 0
+        }
+        if length == 2 {
+            return 1
+        }
+        if length == 3 {
+            return 2
+        }
+        
+        var product = [Int]()
+        product[0] = 0
+        product[1] = 1
+        product[2] = 2
+        product[3] = 3
+        
+        var max = 0
+        
+        for i in 4...length {
+            max = 0
+            for j in 0...i/2 {
+                let value = product[j]*product[i-j]
+                if max < value {
+                    max = value
+                }
+                product[i] = max
+            }
+        }
+        max = product[length]
+        
+        return max
+    }
+    
+    func NumberOf1(n :Int) -> Int {
+        var count = 0
+        var n = n
+        
+        while (n != 0) {
+            count += 1
+            n = (n - 1) & n
+        }
+        
+        return count
+    }
+    
+    func DeleteNode(pListHead : ListNode?, pToBeDeleted : ListNode?) {
+        var pListHead = pListHead
+        var pToBeDeleted = pToBeDeleted
+        
+        if pListHead == nil || pToBeDeleted == nil {
+            return
+        }
+        // 要删除的元素不是尾节点
+        if pToBeDeleted?.next != nil {
+            var pNext = pToBeDeleted?.next
+            pToBeDeleted?.val = pNext!.val
+            pToBeDeleted?.next = pNext?.next
+            pNext = nil
+        }
+        else if (pListHead === pToBeDeleted) {  // 链表中只有一个节点
+            pListHead = nil
+            pToBeDeleted = nil
+        }
+        else { // 链表中有多个节点，需要被删除的节点是尾节点
+            var pNode = pListHead
+            while pNode?.next !== pToBeDeleted {
+                pNode = pNode?.next
+            }
+            
+            pNode?.next = nil
+            pToBeDeleted = nil
+        }
+    }
+    
+    func ReverseList(pHead :ListNode?) -> ListNode? {
+        var pReversedHead: ListNode?
+        var pNode = pHead
+        var pPrev :ListNode?
+        while pNode != nil {
+            let pNext = pNode?.next
+            if pNext != nil {
+                pReversedHead = pNode
+            }
+            pNode?.next = pPrev
+            
+            pPrev = pNode
+            pNode = pNext
+        }
+        
+        return pReversedHead
+    }
+    
+    func Merge(pHead1 :ListNode?, pHead2 :ListNode?) -> ListNode? {
+        if pHead1 == nil {
+            return pHead2
+        }
+        if pHead2 == nil {
+            return pHead1
+        }
+        var pHead1 = pHead1, pHead2 = pHead2
+        var pMergeHead :ListNode?
+        var pMergeHeadCurr :ListNode?
+        while pHead1 != nil && pHead2 != nil  {
+            if pHead1!.val < pHead2!.val {
+                if pMergeHead == nil {
+                    pMergeHead = pHead1
+                    pMergeHeadCurr = pMergeHead
+                } else {
+                    pMergeHeadCurr?.next = pHead1
+                    pMergeHead = pMergeHead?.next
+                }
+                pHead1 = pHead1?.next
+            }
+            else {
+                if pMergeHead == nil {
+                    pMergeHead = pHead2
+                    pMergeHeadCurr = pMergeHead
+                } else {
+                    pMergeHeadCurr?.next = pHead2
+                    pMergeHead = pMergeHead?.next
+                }
+                pHead2 = pHead2?.next
+            }
+        }
+        
+        if pHead1 == nil {
+            while pHead2 != nil {
+                pMergeHeadCurr?.next = pHead2
+                pMergeHeadCurr = pMergeHeadCurr?.next
+                pHead2 = pHead2?.next
+            }
+        }
+        
+        if pHead2 == nil {
+            while pHead1 != nil {
+                pMergeHeadCurr?.next = pHead1
+                pMergeHeadCurr = pMergeHeadCurr?.next
+                pHead1 = pHead1?.next
+            }
+        }
+        
+        return pMergeHead
+    }
+    
+    func MirrorRecursively(pNode :TreeNode?) {
+        if pNode == nil {
+            return
+        }
+        if pNode?.left == nil && pNode?.right == nil {
+            return
+        }
+        
+        let pTemp = pNode?.left
+        pNode?.left = pNode?.right
+        pNode?.right = pTemp
+        
+        if pNode?.left != nil {
+            MirrorRecursively(pNode: pNode?.left)
+        }
+        if pNode?.right != nil {
+            MirrorRecursively(pNode: pNode?.right)
+        }
+    }
 }
