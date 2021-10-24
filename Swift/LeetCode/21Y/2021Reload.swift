@@ -43,7 +43,8 @@ class ReloadLeetcode: UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+     
+        findMedianSortedArrays([1, 2], [3,4])
     }
     
     // MARK: - Array
@@ -450,4 +451,535 @@ class ReloadLeetcode: UIViewController
             MirrorRecursively(pNode: pNode?.right)
         }
     }
+    
+    func isSymmetrical(pRoot :TreeNode?) -> Bool {
+        return isSymmetrical(pRoot1: pRoot, pRtoot2: pRoot)
+    }
+    
+    func isSymmetrical(pRoot1 :TreeNode?, pRtoot2: TreeNode?) -> Bool {
+        if pRoot1 == nil && pRtoot2 == nil {
+            return true
+        }
+        if pRoot1 == nil || pRtoot2 == nil {
+            return false
+        }
+        if pRoot1?.val != pRtoot2?.val {
+            return false
+        }
+        
+        return isSymmetrical(pRoot1: pRoot1?.left, pRtoot2: pRtoot2?.right) && isSymmetrical(pRoot1: pRoot1?.right, pRtoot2: pRtoot2?.left)
+    }
+    
+    func PrintFromTopToBottom(pTreeRoot :TreeNode?) {
+        if pTreeRoot == nil {
+            return
+        }
+        var dequeTreeNode: [TreeNode?] = []
+        dequeTreeNode.append(pTreeRoot)
+        
+        while dequeTreeNode.count > 0 {
+            let pNode =  dequeTreeNode.removeFirst()
+            print(pNode!.val)
+            
+            if pNode?.left != nil {
+                dequeTreeNode.append(pNode?.left)
+            }
+            if pNode?.right != nil {
+                dequeTreeNode.append(pNode?.right)
+            }
+        }
+    }
+    
+    func Print(pRoot :TreeNode?) {
+        if pRoot == nil {
+            return
+        }
+        
+        var queue: [TreeNode?] = []
+        queue.append(pRoot)
+        var nextLevel = 0
+        var toBePrinted = 1
+        while queue.count > 0 {
+            let pNode = queue.removeFirst()
+            print(pNode!.val)
+            
+            if pNode?.left != nil {
+                queue.append(pNode?.left)
+                nextLevel += 1
+            }
+            if pNode?.right != nil {
+                queue.append(pNode?.right)
+                nextLevel += 1
+            }
+            toBePrinted -= 1
+            if toBePrinted == 0 {
+                print("\n")
+                toBePrinted = nextLevel
+                nextLevel = 0
+            }
+        }
+    }
+    
+    func GetLeastNumbers(input :[Int]?, n :Int, output :[Int]?, k :Int) {
+        if input == nil || output == nil || k > n || n <= 0 || k <= 0 {
+            return
+        }
+        var start = 0
+        var end = n - 1
+        var index = Partition(input: input, n: n, start: start, end: end)
+        while index != (k - 1) {
+            if index > k - 1 {
+                end = index - 1
+                index = Partition(input: input, n: n, start: start, end: end)
+            }
+            else {
+                start = index + 1
+                index = Partition(input: input, n: n, start: start, end: end)
+            }
+        }
+        var output = output
+        for i in 0..<k {
+            output![i] = input![i]
+        }
+    }
+    
+    func Partition(input :[Int]?, n :Int, start :Int, end :Int) -> Int {
+        return 1
+    }
+    
+    var g_InvalidInput = false
+    func FindGreatestSumOfSubArray(pData :[Int]?, nLength :Int) -> Int {
+        if pData == nil || nLength <= 0 {
+            g_InvalidInput = true
+            return 0
+        }
+        
+        g_InvalidInput = false
+        
+        var nCurSum = 0
+        var nGreatestSum = 0
+        for i in 0..<nLength {
+            if nCurSum <= 0 {
+                nCurSum = pData![i]
+            }
+            else {
+                nCurSum += pData![i]
+            }
+            
+            if nCurSum > nGreatestSum {
+                nGreatestSum = nCurSum
+            }
+        }
+        return nGreatestSum
+    }
+    
+    func getMaxValue_solution1(values :[Int]?, rows :Int, cols :Int) -> Int {
+        if values == nil || rows <= 0 || cols <= 0 {
+            return 0
+        }
+        
+        var maxValues :[[Int]] = []
+        for i in 0..<rows {
+            maxValues[i] = Array.init(arrayLiteral: cols)
+        }
+        
+        for i in 0..<rows {
+            for j in 0..<cols {
+                var left = 0
+                var up = 0
+                if i > 0 {
+                    up = maxValues[i-1][j]
+                }
+                if j > 0 {
+                    left = maxValues[i][j-1]
+                }
+                maxValues[i][j] = max(left, up) + values![i*cols + j]
+            }
+        }
+        let result = maxValues[rows - 1][cols - 1]
+        return result
+    }
+    
+//    func InversePairs(data: [Int]?, length :Int) -> Int {
+//        if data == nil || length < 0 {
+//            return 0
+//        }
+//
+//        var copy: [Int] = []
+//        for i in 0..<length {
+//            copy[i] = data![i]
+//        }
+//
+//        let count = InversePairsCore(data: data!, copy: copy, start: 0, end: length-1)
+//
+//        return count
+//    }
+//
+//    func InversePairsCore(data: [Int], copy: [Int], start :Int, end :Int) -> Int {
+//        var copy = copy
+//        if start == end {
+//            copy[start] = data[start]
+//            return 0
+//        }
+//
+//        var length = (end - start) / 2
+//        var left = InversePairsCore(data: copy, copy: data, start: start, end: start + length)
+//        var right = InversePairsCore(data: copy, copy: data, start: start + length + 1, end: end)
+//
+//        var i = start + length
+//        var j = end
+//        var indexCopy = end
+//        var count = 0
+//        while i  {
+//            <#code#>
+//        }
+//    }
+    
+    func FindFirstCommonNode(pHead1 :ListNode?, pHead2 :ListNode?) -> ListNode? {
+        if pHead1 == nil || pHead2 == nil {
+            return nil
+        }
+        let nLength1 = GetListLength(pHead: pHead1)
+        let nLength2 = GetListLength(pHead: pHead2)
+        var nLengthDif = nLength1 - nLength2
+        
+        var pListHeadLong = pHead1
+        var pListHeadShort = pHead2
+        if nLength2 > nLength1 {
+            pListHeadLong = pHead2
+            pListHeadShort = pHead1
+            nLengthDif = nLength2 - nLength1
+        }
+        
+        // 先在长链表上走几步，再同时在两个链表上遍历
+        for _ in 0..<nLengthDif {
+            pListHeadLong = pListHeadLong?.next
+        }
+        while pListHeadLong != nil && pListHeadShort != nil && pListHeadLong !== pListHeadShort {
+            pListHeadLong = pListHeadLong?.next
+            pListHeadShort = pListHeadShort?.next
+        }
+        let pFirstCommonNode = pListHeadLong
+        
+        return pFirstCommonNode
+    }
+    
+    func GetListLength(pHead :ListNode?) -> Int {
+        var nLength = 0
+        var pNode = pHead
+        while pNode != nil {
+            pNode = pNode?.next
+            nLength += 1
+        }
+        
+        return nLength
+    }
+    
+    func GetFirstK(data :[Int], length :Int, k :Int, start :Int, end :Int) -> Int {
+        var start = start, end = end
+        
+        if start > end {
+            return -1
+        }
+        let middleIndex = (start + end) / 2
+        let middleData = data[middleIndex]
+        if middleData == k {
+            if (middleIndex > 0 && data[middleIndex-1] != k) || middleIndex == 0  {
+                return middleIndex
+            }
+            else {
+                end = middleIndex - 1
+            }
+        }
+        else if (middleData > k) {
+            end = middleIndex - 1
+        }
+        else {
+            start = middleIndex + 1
+        }
+        return GetFirstK(data: data, length: length, k: k, start: start, end: end)
+    }
+    
+    func GetLastK(data :[Int], length :Int, k :Int, start :Int, end :Int) -> Int {
+        var start = start, end = end
+        
+        if start > end {
+            return -1
+        }
+        let middleIndex = (start + end) / 2
+        let middleData = data[middleIndex]
+        if middleData == k {
+            if (middleIndex < length-1 && data[middleIndex+1] != k) || middleIndex == length-1  {
+                return middleIndex
+            }
+            else {
+                start = middleIndex + 1
+            }
+        }
+        else if (middleData < k) {
+            start = middleIndex + 1
+        }
+        else {
+            end = middleIndex - 1
+        }
+        return GetFirstK(data: data, length: length, k: k, start: start, end: end)
+    }
+    
+    func GetNumberOfK(data :[Int]?, length :Int, k :Int) -> Int {
+        var number = 0
+        if data != nil && length > 0 {
+            let first = GetFirstK(data: data!, length: length, k: k, start: 0, end: length - 1)
+            let last = GetLastK(data: data!, length: length, k: k, start: 0, end: length - 1)
+            if first > -1 && last > -1 {
+                number = last - first + 1
+            }
+        }
+        
+        return number
+    }
+    
+    func TreeDepth(pRoot :TreeNode?) -> Int {
+        if pRoot == nil {
+            return 0
+        }
+        let nLeft = TreeDepth(pRoot: pRoot?.left)
+        let nRight = TreeDepth(pRoot: pRoot?.right)
+        
+        return (nLeft > nRight) ? (nLeft + 1) : (nRight + 1)
+    }
+    
+    func IsBalanced(pRoot :TreeNode?, pDepth :inout Int) -> Bool {
+        if pRoot == nil {
+            pDepth = 0
+            return true
+        }
+        
+        var left = 0, right = 0
+        if IsBalanced(pRoot: pRoot?.left, pDepth: &left) && IsBalanced(pRoot: pRoot?.right, pDepth: &right) {
+            let diff = left - right
+            if diff <= 1 && diff >= -1 {
+                pDepth = 1 + (left > right ? left : right)
+                return true
+            }
+        }
+        return false
+    }
+    
+    func maxInWindows(num :[Int], size :Int) -> [Int] {
+        var maxInWindows :[Int] = []
+        if num.count >= size && size >= 1 {
+            var index: [Int] = []
+            for i in 0..<size {
+                while index.count != 0 && num[i] >= num[index.last!] {
+                    index.removeLast()
+                }
+                index.append(i)
+            }
+            for i in size..<num.count {
+                maxInWindows.append(num[index.first!])
+                while index.count > 0 && num[i] >= num[index.last!] {
+                    index.removeLast()
+                }
+                if index.count > 0 && index.first! <= (i - size) {
+                    index.removeFirst()
+                }
+                index.append(i)
+            }
+            maxInWindows.append(num[index.first!])
+        }
+        return maxInWindows
+    }
+    
+    func MaxDiff(number :[Int], length :Int) -> Int {
+        if number.count < length || length < 2 {
+            return 0
+        }
+        
+        var min = number[0]
+        var maxDiff = number[1] - min
+        for i in 2..<length {
+            if number[i - 1] < min {
+                min = number[ i - 1]
+            }
+            let currentDiff = number[i] - min
+            if currentDiff > maxDiff {
+                maxDiff = currentDiff
+            }
+        }
+        return maxDiff
+    }
+    
+    func Add(num1 :Int, num2 :Int) -> Int {
+        var num1 = num1, num2 = num2
+        var sum = 0, carry = 0
+        while (num2 != 0){
+            sum = num1 ^ num1
+            carry = (num1 & num2) << 1
+            num1 = sum
+            num2 = carry
+        }
+        
+        return num1
+    }
+    
+    func minWindow(s :String, t :String) -> String {
+        var minLen = INT_MAX, left = 0, right = 0
+        var start = 0
+        var window :[Character : Int] = [:]
+        var needs :[Character : Int] = [:]
+        for c in t {
+            needs[c] = needs[c] ?? 0 + 1
+        }
+        
+        var match = 0
+        while right < s.count {
+            let c1 = s[s.index(s.startIndex, offsetBy: right)]
+            if needs[c1] != nil {
+                window[c1] = window[c1] ?? 0 + 1
+                if window[c1] == needs[c1] {
+                    match += 1
+                }
+            }
+            right += 1
+            
+            while match == needs.count {
+                if right - left < minLen {
+                    start = left
+                    minLen = Int32(right - left)
+                }
+                let c2 = s[s.index(s.startIndex, offsetBy: left)]
+                if needs[c2] != nil {
+                    window[c2] = window[c2]! - 1
+                    if window[c2]! < needs[c2]! {
+                        match -= 1
+                    }
+                }
+                left += 1
+            }
+        }
+        let startIndex = s.index(s.startIndex, offsetBy: start)
+//        let endIndex = s.index(startIndex, offsetBy: minLen)
+//        return minLen == INT_MAX ? "" : s.substr(start, minLen);
+        return ""
+    }
+    
+    func findMedianSortedArrays(_ nums1: [Int], _ nums2: [Int]) -> Double {
+        if nums1.count > nums2.count {
+            return findMedianSortedArrays(nums2, nums1)
+        }
+        var low = 0, high = nums1.count, k = (nums1.count + nums2.count + 1) >> 1, nums1Mid = 0, nums2Mid = 0
+        while low <= high {
+            nums1Mid = low + (high-low)>>1
+            nums2Mid = k - nums1Mid
+            if nums1Mid > 0 && nums1[nums1Mid-1] > nums2[nums2Mid] {
+                high = nums1Mid - 1
+            }
+            else if nums1Mid != nums1.count && nums1[nums1Mid] < nums2[nums2Mid-1] {
+                low = nums1Mid + 1
+            } else {
+                // 找到合适的划分了
+                break
+            }
+        }
+        var midLeft = 0, midRight = 0
+        if nums1Mid == 0 {
+            midLeft = nums2[nums2Mid-1]
+        } else if nums2Mid == 0 {
+            midLeft = nums1[nums1Mid-1]
+        } else {
+            midLeft = max(nums1[nums1Mid-1], nums2[nums2Mid-1])
+        }
+        
+        if (nums1.count+nums2.count) & 1 == 1 {
+            return Double(midLeft)
+        }
+        if nums1Mid == nums1.count {
+            midRight = nums2[nums2Mid]
+        } else if nums2Mid == nums2.count {
+            midRight = nums1[nums1Mid]
+        } else {
+            midRight = min(nums1[nums1Mid], nums2[nums2Mid])
+        }
+        
+        return Double((midLeft + midRight)) / 2.0
+    }
+    
+    
+    func longestPalindrome(_ s: String) -> String {
+        var res = ""
+//        var dp :[[Bool]] = []
+//        for i in 0..<s.count {
+//            dp[i] = Array.init(repeating: true, count: s.count)
+//        }
+//        for i in (0...s.count-1).reversed() {
+//            for j in i..<s.count {
+//                dp[i][j] = (s[i] == s[j]) && ((j-i < 3) || dp[i+1][j-1])
+//                if dp[i][j] && (res == "" || j-i+1 > res.count) {
+//                    res = s[i : j+1]
+//                }
+//            }
+//        }
+        
+        return res
+    }
+    
+    func longestPalindrome1(_ s: String) -> String {
+        var res = ""
+        for i in 0..<s.count {
+            res = maxPalindrome(s: s, i: i, j: i, res: res)
+            res = maxPalindrome(s: s, i: i, j: i+1, res: res)
+        }
+        
+        return res
+    }
+    
+    func maxPalindrome(s: String, i: Int, j: Int, res: String) -> String {
+        var sub = "", i = i, j = j
+        while i >= 0 && j < s.count && s[s.index(s.startIndex, offsetBy: i)] == s[s.index(s.startIndex, offsetBy: j)] {
+            let start = s.index(s.startIndex, offsetBy: i)
+            let end = s.index(s.startIndex, offsetBy: j+1)
+            sub = String(s[start..<end])
+            i -= 1
+            j += 1
+        }
+        if res.count < sub.count {
+            return sub
+        }
+        return res
+    }
+    
+    func quicksort<T: Comparable>(_ a: [T]) -> [T] {
+        guard a.count > 1 else {
+            return a
+        }
+        
+        let pivot = a[a.count / 2]
+        let less = a.filter{ $0 < pivot}
+        let equal = a.filter{ $0 == pivot}
+        let greater = a.filter{$0 > pivot}
+        
+        return quicksort(less) + equal + quicksort(greater)
+    }
+    
+    
+    func maxValue ( _ s: String,  _ k: Int) -> Int {
+    // write code here
+        if k >= s.count || k <= 0 {
+            return Int(s) ?? 0
+        }
+        var maxValue = 0;
+        var startIndex = s.startIndex, endIndex = s.startIndex
+        for i in 0..<s.count-k {
+            startIndex = s.index(s.startIndex, offsetBy: i)
+            endIndex = s.index(s.startIndex, offsetBy: i+k-1)
+            let currentValue = s[startIndex...endIndex]
+            if Int(currentValue)! > Int(exactly: maxValue)! {
+                maxValue = Int(currentValue)!;
+            }
+        }
+        
+        return maxValue;
+    }
 }
+
+

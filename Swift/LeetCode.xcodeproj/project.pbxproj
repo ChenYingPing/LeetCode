@@ -13,6 +13,7 @@
 		7489E2CB1CBE2E3900CB3A5A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7489E2C91CBE2E3900CB3A5A /* LaunchScreen.storyboard */; };
 		7489E2D61CBE2E3A00CB3A5A /* LeetCodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7489E2D51CBE2E3A00CB3A5A /* LeetCodeTests.swift */; };
 		7489E2E11CBE2E3A00CB3A5A /* LeetCodeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7489E2E01CBE2E3A00CB3A5A /* LeetCodeUITests.swift */; };
+		AF3D6737271FCA7000AA6B8B /* niukewang.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3D6736271FCA7000AA6B8B /* niukewang.m */; };
 		AFC744EF263A5D3A00C5B96A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC744E6263A5D3A00C5B96A /* ViewController.swift */; };
 		AFC744F0263A5D3A00C5B96A /* LastOneOmg.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC744E7263A5D3A00C5B96A /* LastOneOmg.swift */; };
 		AFC744F1263A5D3A00C5B96A /* Hundred.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC744E8263A5D3A00C5B96A /* Hundred.swift */; };
@@ -53,6 +54,9 @@
 		7489E2DC1CBE2E3A00CB3A5A /* LeetCodeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LeetCodeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7489E2E01CBE2E3A00CB3A5A /* LeetCodeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeetCodeUITests.swift; sourceTree = "<group>"; };
 		7489E2E21CBE2E3A00CB3A5A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AF3D6734271FCA6C00AA6B8B /* LeetCode-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LeetCode-Bridging-Header.h"; sourceTree = "<group>"; };
+		AF3D6735271FCA7000AA6B8B /* niukewang.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = niukewang.h; sourceTree = "<group>"; };
+		AF3D6736271FCA7000AA6B8B /* niukewang.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = niukewang.m; sourceTree = "<group>"; };
 		AFC744E6263A5D3A00C5B96A /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		AFC744E7263A5D3A00C5B96A /* LastOneOmg.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastOneOmg.swift; sourceTree = "<group>"; };
 		AFC744E8263A5D3A00C5B96A /* Hundred.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hundred.swift; sourceTree = "<group>"; };
@@ -114,10 +118,13 @@
 				AFC744E5263A5D3A00C5B96A /* 16Y */,
 				AFC744ED263A5D3A00C5B96A /* 21Y */,
 				7489E2C01CBE2E3900CB3A5A /* AppDelegate.swift */,
+				AF3D6735271FCA7000AA6B8B /* niukewang.h */,
+				AF3D6736271FCA7000AA6B8B /* niukewang.m */,
 				7489E2C71CBE2E3900CB3A5A /* Assets.xcassets */,
 				7489E2C91CBE2E3900CB3A5A /* LaunchScreen.storyboard */,
 				7489E2CC1CBE2E3900CB3A5A /* Info.plist */,
 				7489E2C41CBE2E3900CB3A5A /* Main.storyboard */,
+				AF3D6734271FCA6C00AA6B8B /* LeetCode-Bridging-Header.h */,
 			);
 			path = LeetCode;
 			sourceTree = "<group>";
@@ -230,6 +237,7 @@
 				TargetAttributes = {
 					7489E2BC1CBE2E3900CB3A5A = {
 						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 1250;
 					};
 					7489E2D01CBE2E3A00CB3A5A = {
 						CreatedOnToolsVersion = 7.3;
@@ -297,6 +305,7 @@
 				AFC744F0263A5D3A00C5B96A /* LastOneOmg.swift in Sources */,
 				AFC744EF263A5D3A00C5B96A /* ViewController.swift in Sources */,
 				AFC744F4263A5D3A00C5B96A /* Another.swift in Sources */,
+				AF3D6737271FCA7000AA6B8B /* niukewang.m in Sources */,
 				AFC744F3263A5D3A00C5B96A /* maybe.swift in Sources */,
 				AFC744F2263A5D3A00C5B96A /* lifeCycle.swift in Sources */,
 				AFC744F1263A5D3A00C5B96A /* Hundred.swift in Sources */,
@@ -446,11 +455,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = LeetCode/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yx.www.LeetCode;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "LeetCode/LeetCode-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -459,11 +471,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = LeetCode/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yx.www.LeetCode;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "LeetCode/LeetCode-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
