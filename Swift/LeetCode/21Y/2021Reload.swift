@@ -44,7 +44,17 @@ class ReloadLeetcode: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
      
-        findMedianSortedArrays([1, 2], [3,4])
+//        findMedianSortedArrays([1, 2], [3,4])
+        var root = TreeNode(1);
+        root.left = TreeNode(2);
+        var right = TreeNode(3);
+        root.right = right;
+//        var nextLeft = TreeNode(15);
+//        var nextright = TreeNode(7);
+//        right.left = nextLeft;
+//        right.right = nextright
+        var sum = maxPathSum(root);
+        print(sum)
     }
     
     // MARK: - Array
@@ -979,6 +989,324 @@ class ReloadLeetcode: UIViewController
         }
         
         return maxValue;
+    }
+    
+    var maxSum = Int.min;
+    func maxPathSum(_ root: TreeNode?) -> Int {
+        if (root == nil) {
+            return 0;
+        }
+        maxSum = getPathSum(root);
+        return maxSum;
+    }
+        
+    func getPathSum(_ root: TreeNode?) -> Int {
+        if (root == nil) {
+            return Int.min;
+        }
+        let val = root!.val;
+        var sumLeft = Int.min/3;
+        var sumRight = Int.min/3;
+        if (root!.left != nil) {
+            sumLeft = getPathSum(root!.left);
+        }
+        if (root!.right != nil) {
+            sumRight = getPathSum(root!.right);
+        }
+       var currMax = max(max(sumLeft, sumRight), val)
+        currMax = max(currMax, max(sumLeft + val, sumRight + val))
+        currMax = max(currMax, sumLeft + sumRight + val);
+        maxSum = max(maxSum, currMax);
+        return currMax;
+    }
+    
+    func reverseList(_ head: ListNode?) -> ListNode? {
+        var behind :ListNode?
+        var head = head
+        while head != nil {
+            let next = head?.next
+            head?.next = behind
+            behind = head
+            head = next
+        }
+        return behind
+    }
+    
+    // MARK - listNode 相关
+    func addTwoNumbers2(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
+        var result = ListNode(0), current = result
+        var head1 = l1, head2 = l2
+        var n1 = 0, n2 = 0, carry = 0
+        while head1 != nil ||  head2 != nil || carry != 0 {
+            if head1 == nil {
+                n1 = 0
+            } else {
+                n1 = head1!.val
+                head1 = head1?.next
+            }
+            if head2 == nil {
+                n2 = 0
+            } else {
+                n2 = head2!.val
+                head2 = head2?.next
+            }
+            let node = ListNode((n1 + n2 + carry) % 10)
+            current.next = node
+            current = current.next!
+            carry = (n1 + n2 + carry) / 10
+        }
+        
+        return result.next
+    }
+    
+    func removeNthFromEnd(_ head: ListNode?, _ n: Int) -> ListNode? {
+        let dumyHead :ListNode? = ListNode(0)
+        dumyHead?.next = head
+        var l1 = dumyHead, l2 = dumyHead , n = n
+        while n >= 0 && l1 != nil {
+            l1 = l1?.next
+            n -= 1
+        }
+        while l1 != nil {
+            l1 = l1?.next
+            l2 = l2?.next
+        }
+        l2?.next = l2?.next?.next
+        
+        return dumyHead?.next
+    }
+    
+    func mergeTwoLists(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
+        var l1 = l1, l2 = l2
+        var dumyHead :ListNode? = ListNode(0)
+        let result = dumyHead
+        while l1 != nil && l2 != nil {
+            if l1!.val < l2!.val {
+                dumyHead?.next = l1
+                l1 = l1?.next
+                dumyHead = dumyHead?.next
+            } else {
+                dumyHead?.next = l2
+                l2 = l2?.next
+                dumyHead = dumyHead?.next
+            }
+        }
+        while l1 != nil {
+            dumyHead?.next = l1
+            l1 = l1?.next
+            dumyHead = dumyHead?.next
+        }
+        while l2 != nil {
+            dumyHead?.next = l2
+            l2 = l2?.next
+            dumyHead = dumyHead?.next
+        }
+        return result?.next
+    }
+    
+    func mergeKLists(_ lists: [ListNode?]) -> ListNode? {
+        if lists.count == 0 {
+            return nil
+        }
+        if lists.count == 1 {
+            return lists[0]
+        }
+        let mid = lists.count / 2
+        let left = mergeKLists(Array(lists[0..<mid]))
+        let right = mergeKLists(Array(lists[mid..<lists.count]))
+        return mergeTwoLists(left, right)
+    }
+    
+    func swapPairs(_ head: ListNode?) -> ListNode? {
+        if head == nil || head?.next == nil {
+            return head
+        }
+        let n = head?.next
+        head?.next = swapPairs(head?.next?.next)
+        n?.next = head
+        return n
+    }
+    
+    func reverseKGroup(_ head: ListNode?, _ k: Int) -> ListNode? {
+        var k = k, node = head, head = head
+        while k > 0 {
+            if node == nil {
+                return head
+            }
+            node = node?.next
+            k -= 1
+        }
+        let newHead = reverse(l1: head, l2: node)
+        newHead[1]?.next = reverseKGroup(node, k)
+        return newHead[0]
+    }
+    
+    func reverse(l1 :ListNode?, l2 :ListNode?) -> [ListNode?] {
+        var l1 = l1, prev = l2, oldL1 = l1
+        while l1 !== l2 {
+            let tmp = l1?.next
+            l1?.next = prev
+            prev = l1
+            l1 = tmp
+        }
+        return [prev, oldL1]
+    }
+    
+    func rotateRight(_ head: ListNode?, _ k: Int) -> ListNode? {
+        if head == nil {
+            return nil
+        }
+        var len = 0, l1 = head
+        while l1 != nil {
+            len += 1
+            l1 = l1?.next
+        }
+        let k = k % len
+        if k == 0 {
+            return head
+        }
+        l1 = head
+        let prel1 = l1
+        for _ in 0..<(len-k-1) {
+            l1 = l1?.next
+        }
+        let next = l1?.next
+        l1?.next = nil;
+        var l2 = next
+        while l2?.next != nil {
+            l2 = l2?.next
+        }
+        l2?.next = prel1
+        
+        return next
+    }
+    
+    func deleteDuplicates(_ head: ListNode?) -> ListNode? {
+        var l1 = head
+        while l1?.next != nil {
+            let next = l1?.next
+            if next?.val == l1?.val {
+                l1?.next = l1?.next?.next
+            } else {
+                l1 = l1?.next
+            }
+        }
+        
+        return head
+    }
+    
+    func partition(_ head: ListNode?, _ x: Int) -> ListNode? {
+        if head?.next == nil {
+            return head
+        }
+        var head = head
+        let smallList = ListNode(0)
+        var nextSmall = smallList
+        let greaterList = ListNode(0)
+        var nextGrea = greaterList
+        while head != nil {
+            if head!.val >= x {
+                nextGrea.next = ListNode(head!.val)
+                nextGrea = nextGrea.next!
+            } else {
+                nextSmall.next = ListNode(head!.val)
+                nextSmall = nextSmall.next!
+            }
+            head = head?.next
+        }
+        
+        nextSmall.next = greaterList.next
+        return smallList.next
+    }
+    
+    func hasCycle(_ head: ListNode?) -> Bool {
+        var fast = head, low = head
+        while fast != nil && fast?.next != nil {
+            fast = fast?.next?.next
+            low = low?.next
+            if fast === low {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func hasCycle142(_ head: ListNode?) -> ListNode? {
+        var fast = head, low = head
+        while fast != nil && fast?.next != nil {
+            fast = fast?.next?.next
+            low = low?.next
+            if fast === low {
+                return low
+            }
+        }
+        return nil
+    }
+    
+    func detectCycle(_ head: ListNode?) -> ListNode? {
+        var low = hasCycle142(head)
+        var fast = head
+        if low != nil {
+            if fast === low {
+                return fast
+            }
+            low = low?.next
+            fast = fast?.next
+        }
+        return nil
+    }
+    
+    func reorderList(_ head: ListNode?) -> ListNode? {
+        if head == nil || head?.next == nil {
+            return head
+        }
+        
+        var p1 = head, p2 = head
+        while p2?.next != nil && p2?.next?.next != nil {
+            p1 = p1?.next
+            p2 = p2?.next?.next
+        }
+        
+        // 反转链表后半部分 1-2-3-4-5-6 to 1-2-3-6-5-4
+        let preMiddle = p1
+        let preCurrent = p1?.next
+        while preCurrent?.next != nil {
+            let current = preCurrent?.next
+            preCurrent?.next = current?.next
+            current?.next = preMiddle?.next
+            preMiddle?.next = current
+        }
+        
+        // 重新拼接链表 1-2-3-6-5-4 to 1-6-2-5-3-4
+        p1 = head
+        p2 = preMiddle?.next
+        while p1 !== preMiddle {
+            preMiddle?.next = p2?.next
+            p2?.next = p1?.next
+            p1?.next = p2
+            p1 = p2?.next
+            p2 = preMiddle?.next
+        }
+        return head
+    }
+    
+    func insertionSortList(_ head: ListNode?) -> ListNode? {
+        if head == nil {
+            return head
+        }
+        let newHead :ListNode? = ListNode(0);
+        var cur = head, pre = newHead
+        while cur != nil {
+            let next = cur?.next
+            while pre?.next != nil && pre!.next!.val  < cur!.val {
+                pre = pre?.next
+            }
+            cur?.next = pre?.next
+            pre?.next = cur
+            pre = newHead
+            cur = next
+        }
+        return newHead?.next
     }
 }
 
