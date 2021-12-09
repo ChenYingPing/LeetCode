@@ -1308,6 +1308,89 @@ class ReloadLeetcode: UIViewController
         }
         return newHead?.next
     }
+    
+    
+    func sortList(_ head: ListNode?) -> ListNode? {
+        var length = 0
+        var cur = head
+        while cur != nil {
+            length += 1
+            cur = cur?.next
+        }
+        if length <= 1 {
+            return head
+        }
+        var middleNode = middleNode(head)
+        cur = middleNode?.next
+        middleNode?.next = nil
+        middleNode = cur
+        let left = sortList(head)
+        let right = sortList(middleNode)
+        return mergeTwoLists(left, right)
+    }
+    
+    func middleNode(_ head: ListNode?) -> ListNode? {
+        if head == nil || head?.next == nil {
+            return head
+        }
+        var p1 = head, p2 = head
+        while p2?.next != nil && p2?.next?.next != nil {
+            p1 = p1?.next
+            p2 = p2?.next?.next
+        }
+        return p1
+    }
+    
+    func mergeTwoLists(_ l1: ListNode?, l2: ListNode?) -> ListNode? {
+        if l1 == nil {
+            return l2
+        }
+        if l2 == nil {
+            return l1
+        }
+        if l1!.val < l2!.val {
+            l1?.next = mergeTwoLists(l1?.next, l2)
+            return l1
+        }
+        l2?.next = mergeTwoLists(l1, l2?.next)
+        return l2
+    }
+    
+    func getIntersectionNode(_ headA: ListNode?, _ headB: ListNode?) -> ListNode? {
+        if headA == nil {
+            return nil
+        }
+        if headB == nil {
+            return nil
+        }
+        var p1 = headA, p2 = headB
+        while p1 !== p2 {
+            if p1 == nil {
+                p1 = headB
+            } else {
+                p1 = p1?.next
+            }
+            if p2 == nil {
+                p2 = headA
+            } else {
+                p2 = p2?.next
+            }
+        }
+        return p1
+    }
+    
+    func reverseList111(_ head: ListNode?) -> ListNode? {
+        let dumyHead :ListNode? = ListNode(0)
+        dumyHead?.next = head
+        let head = head
+        while head?.next != nil {
+            let next = head?.next
+            head?.next = next?.next
+            next?.next = dumyHead?.next
+            dumyHead?.next = next
+        }
+        return dumyHead?.next
+    }
 }
 
 
